@@ -10,18 +10,29 @@ class Participantes extends ModeloBaseDeDatos{
     }
     
 
-    function crear_registro(){
-        
-        $this->sentencia_sql="INSERT INTO ";
-                
-        if($this->insertar_registro()){
-            return array("mensaje"=> $this->mensajeDepuracion,
-                "respuesta"=>TRUE,
-                "nuevo_registro"=>$this->respuesta_funcion->respuesta);
+    function crear_registro($arr){
+         foreach ($arr as $key => $value) {
+                $$key=$value;
+            }   
+
+        $this->sentencia_sql="SELECT * FROM detalle_participantes WHERE user_id = $user_id AND event_id = $event_id";
+        if($this->consultar_registros()==false){
+            $this->sentencia_sql="INSERT INTO detalle_participantes (user_id,event_id) VALUES ('$user_id','$event_id')"; 
+
+            if($this->insertar_registro()){
+            //var_dump($this->respuesta_funcion);
+                return array("mensaje"=> $this->mensajeDepuracion,
+                    "respuesta"=>TRUE);
+            }else{
+                return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE);
+            }   
         }else{
-            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE);
+            //actualizar horario
         }
+                
+        
     }    
+
 
     function obtener_registro_todos_los_registros(){
         
@@ -38,7 +49,12 @@ class Participantes extends ModeloBaseDeDatos{
         
     }
     function obtener_registro_por_valor($valores_a_retornar,$valor){
-        $this->sentencia_sql="SELECT ". trim($valores_a_retornar)." FROM ". trim($this->TABLA) ." WHERE ".$valor;
+        $this->sentencia_sql="SELECT ". trim($valores_a_retornar)." FROM ". trim($this->TABLA);
+
+        if($valor!=""){
+            $this->sentencia_sql.=" WHERE ".$valor;
+        }
+        
         //echo $this->sentencia_sql;
         
         
@@ -61,9 +77,48 @@ class Participantes extends ModeloBaseDeDatos{
             return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>TRUE);
         }
     }
-    function actualizar_recurso(){
-        
-        $this->sentencia_sql="SELECT () as respuesta";
+    function actualizar_recurso($arr,$id){
+        foreach ($arr as $key => $value) {
+                $$key=$value;
+            }   
+         $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
+                                                        tipo_doc = '$tipo_doc',
+                                                        documento = '$documento',
+                                                        lugar_exp = '$lugar_exp',
+                                                        pri_apellido = '$pri_apellido',
+                                                        seg_apellido = '$seg_apellido',
+                                                        pri_nombre = '$pri_nombre',
+                                                        seg_nombre = '$seg_nombre',
+                                                        dep_nacimiento = '$dep_nacimiento',
+                                                        ciud_nacimiento = '$ciud_nacimiento',
+                                                        fecha_nac = '$fecha_nac',
+                                                        genero = '$genero',
+                                                        cap_dife = '$cap_dife',
+                                                        etnia = '$etnia',
+                                                        zona = '$zona',
+                                                        municipio = '$municipio',
+                                                        celular = '$celular',
+                                                        email = '$email',
+                                                        escolaridad = '$escolaridad',
+                                                        titulo_obt = '$titulo_obt',
+                                                        organizacion = '$organizacion',
+                                                        proceso = '$proceso',
+                                                        estado_registro = 'registro'
+                                                        WHERE id = '$id'";
+        if($this->actualizar_registro()){
+            return array("mensaje"=> $this->mensajeDepuracion,
+                "respuesta"=>TRUE);
+        }else{
+            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>TRUE);
+        }
+    }
+
+    function actualizar_recurso_estado($id){
+      
+          $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
+                                                        
+                                                        estado_registro = 'registrado'
+                                                        WHERE id = '$id'";
         if($this->actualizar_registro()){
             return array("mensaje"=> $this->mensajeDepuracion,
                 "respuesta"=>TRUE);

@@ -155,8 +155,9 @@ abstract class ModeloBaseDeDatos{
     }
     //Metodos abstractos
     public function insertar_registro(){
+        echo $this->sentencia_sql;
         if($this->sentencia_sql!=""){
-            if($this->ejecutar_funcion_sql()){
+            if($this->ejecutar_sentencia_sql()){
                 $this->codigoMensaje="00";
                 $this->mensajeDepuracion="se ha registrado un nuevo registro en la Base de datos";
                 return TRUE;
@@ -176,6 +177,7 @@ abstract class ModeloBaseDeDatos{
         
     }
     public function consultar_registros(){
+        //echo $this->sentencia_sql;
         if($this->sentencia_sql!=""){
             if($this->ejecutar_consulta_sql()){
                  $this->mensajeDepuracion="Registros encontrados";
@@ -210,7 +212,7 @@ abstract class ModeloBaseDeDatos{
     }
     public function actualizar_registro(){
         if($this->sentencia_sql!=""){
-            if($this->ejecutar_funcion_sql()){
+            if($this->ejecutar_sentencia_sql()){
                 $this->mensajeDepuracion="se ha actualizado un nuevo registro en la Base de datos";
                 return TRUE;
             }else{

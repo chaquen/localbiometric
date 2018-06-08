@@ -2,8 +2,10 @@
 header('Content-Type:text/html; Charset="UTF-8"');    
 
 include("../datos/orm_core.php");
-if(isset($_POST['datos'])){
-    $post=  json_decode($_POST['datos']);
+//var_dump(isset($_REQUEST["datos"]));
+
+if(isset($_REQUEST['datos'])){
+    $post=  json_decode($_REQUEST['datos']);
     $operacion=$post->operacion;
     $objeto= new Participantes();//Mi clase  modelo 
    
@@ -26,12 +28,20 @@ if(isset($_POST['datos'])){
             
             break;
             
-
+        case "crearParticipante":
+        //var_dump($post->datos->datos);    
+        //var_dump($post->datos->id);    
+        //var_dump($objeto->actualizar_recurso($post->datos->datos,$post->datos->id));
+        echo  json_encode($objeto->actualizar_recurso($post->datos->datos,$post->datos->id));
+            break;   
+        case "consultarParticipante":
+            var_dump($post);
+        break;     
 
         default :
             echo json_encode(array("respuesta"=>FALSE,"mensaje"=>"Por favor defina una operacion o agrege una opcion en el swicth"));
             break;
     }
 }else{
-    echo json_encode(array("respuesta"=>FALSE,"mensaje"=>"Por favor ingrese datos en la peticion"));
+    echo json_encode(array("respuesta"=>FALSE,"mensaje"=>"Por favor ingrese datos en la petición","datos"=>$_REQUEST['datos']));
 }
