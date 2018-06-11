@@ -49,7 +49,8 @@ class Participantes extends ModeloBaseDeDatos{
         
     }
     function obtener_registro_por_valor($valores_a_retornar,$valor){
-        $this->sentencia_sql="SELECT ". trim($valores_a_retornar)." FROM ". trim($this->TABLA);
+        
+         $this->sentencia_sql="SELECT ". trim($valores_a_retornar)." FROM ". trim($this->TABLA);
 
         if($valor!=""){
             $this->sentencia_sql.=" WHERE ".$valor;
@@ -103,7 +104,7 @@ class Participantes extends ModeloBaseDeDatos{
                                                         titulo_obt = '$titulo_obt',
                                                         organizacion = '$organizacion',
                                                         proceso = '$proceso',
-                                                        estado_registro = 'registro'
+                                                        estado_registro = 'registrado'
                                                         WHERE id = '$id'";
         if($this->actualizar_registro()){
             return array("mensaje"=> $this->mensajeDepuracion,

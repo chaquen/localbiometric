@@ -184,7 +184,7 @@ abstract class ModeloBaseDeDatos{
                 return TRUE;
             }else{
                 
-                $this->mensajeDepuracion="Ha ocurrido un error al consultar los registros";
+                $this->mensajeDepuracion="No hay registros encontrados";
                 return FALSE;
             }
             
