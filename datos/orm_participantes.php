@@ -35,11 +35,43 @@ class Participantes extends ModeloBaseDeDatos{
 
 
     function obtener_registro_todos_los_registros(){
-        
-        $this->sentencia_sql="SELECT * FROM ".trim($this->TABLA);
+        $tbl=$this->TABLA;
+          $this->sentencia_sql="SELECT 
+                            `participantes`.`id`, 
+                            `tipo_doc`,
+                            `documento`,
+                            `lugar_exp`, 
+                            `pri_apellido`,
+                            `seg_apellido`,
+                            `pri_nombre`,
+                            `seg_nombre`, 
+                            `ciud_nacimiento`, 
+                            `dep_nacimiento`, 
+                            `fecha_nac`, 
+                            `genero`, 
+                            `cap_dife`, 
+                            `etnia`, 
+                            `zona`, 
+                            `municipio`, 
+                            `celular`, 
+                            `email`, 
+                            `escolaridad`, 
+                            `titulo_obt`, 
+                            `proceso`, 
+                            `organizacion`, 
+                            `huella_binaria`, 
+                            `state`, 
+                            `estado_registro`, 
+                            `tipo_registro`, 
+                            `id_server`, 
+                            `participantes`.`created_at`, 
+                            `participantes`.`updated_at`,
+                            `detalle_participantes`.`event_id`
+                            FROM ".trim($this->TABLA)." INNER JOIN detalle_participantes WHERE detalle_participantes.user_id = participantes.id" ;
         
         
         if($this->consultar_registros()){
+            //var_dump($this->filas);
             return array("mensaje"=>$this->mensajeDepuracion,
                 "respuesta"=>TRUE,
                 "valores_consultados"=>$this->filas);

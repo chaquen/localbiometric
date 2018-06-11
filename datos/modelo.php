@@ -155,7 +155,7 @@ abstract class ModeloBaseDeDatos{
     }
     //Metodos abstractos
     public function insertar_registro(){
-        echo $this->sentencia_sql;
+        //echo $this->sentencia_sql;
         if($this->sentencia_sql!=""){
             if($this->ejecutar_sentencia_sql()){
                 $this->codigoMensaje="00";
