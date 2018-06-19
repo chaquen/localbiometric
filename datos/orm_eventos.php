@@ -12,17 +12,18 @@ class Eventos extends ModeloBaseDeDatos{
 
     function crear_registro($arr){
          foreach ($arr as $key => $value) {
+            //var_dump($key);
                 $$key=$value;
             }   
 
-        $this->sentencia_sql="SELECT * FROM eventos WHERE  id = $id_e";
+        $this->sentencia_sql="SELECT * FROM eventos WHERE  id = $id";
         if($this->consultar_registros()==false){
-            $this->sentencia_sql="INSERT INTO ". trim($this->TABLA)." (id,id_ref,name,description,date,city,address,atachments,state,img) 
-                VALUES ('$id_e','$id_ref','$name','$description','$date','$city','$address','$atachments','$state','$img')"; 
+            $this->sentencia_sql="INSERT INTO ". trim($this->TABLA)." (id,id_ref,name,description,date,city,address,atachments,state,img,created_at,updated_at) 
+                VALUES ('$id','$id_ref','$name','$description','$date','$city','$address','$atachments','$state','$img','$created_at','$updated_at')"; 
 
             if($this->insertar_registro()){
-            //var_dump($this->respuesta_funcion);
-                return array("mensaje"=> $this->mensajeDepuracion,
+            //var_dump($this->filas[0]);
+                return array("mensaje"=> "El evento ".$name." se ha registrado satifactoriamente",
                     "respuesta"=>TRUE);
             }else{
                 return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE);
@@ -30,7 +31,27 @@ class Eventos extends ModeloBaseDeDatos{
 
            
         }else{
-            //actualizar horario
+
+
+            $this->sentencia_sql="UPDATE ".$this->TABLA." SET                                                         
+                                                        name = '$name',
+                                                        description = '$description',
+                                                        date = '$date',
+                                                        city = '$city',
+                                                        address = '$address',
+                                                        atachments = '$atachments',
+                                                        state = '$state',
+                                                        img = '$img',
+                                                        updated_at = '$updated_at'
+                                                        WHERE id = '$id'";
+            if($this->actualizar_registro()){
+                 return array("mensaje"=>  "El evento ".$this->filas[0]["name"]." ya esta registrado","respuesta"=>FALSE, "datos"=>$this->filas[0]["name"]);
+            }else{
+                return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>TRUE);
+            }
+
+
+           
         }
                 
         
@@ -128,6 +149,43 @@ class Eventos extends ModeloBaseDeDatos{
                 "respuesta"=>TRUE);
         }else{
             return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>TRUE);
+        }
+    }
+
+
+    public function crear_detalle_evento($arr){
+        foreach ($arr as $key => $value) {
+                $$key=$value;
+            }   
+
+         $this->sentencia_sql="SELECT * FROM detalle_participantes WHERE user_id = $user_id AND event_id = $event_id";
+        //var_dump($this->consultar_registros());
+        //var_dump($this->filas[0]["id"]);
+        if($this->consultar_registros()==false){
+            $this->sentencia_sql="INSERT INTO detalle_participantes (user_id,event_id,created_at,updated_at) VALUES ('$user_id','$event_id','$created_at','$updated_at')"; 
+
+            if($this->insertar_registro()){
+            //var_dump($this->respuesta_funcion);
+                return array("mensaje"=> $this->mensajeDepuracion,
+                    "respuesta"=>TRUE);
+            }else{
+                return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>FALSE);
+            }   
+        }else{
+
+
+             $this->sentencia_sql="UPDATE detalle_participantes SET 
+                                                        
+                                                        user_id = '$user_id',
+                                                        event_id = '$event_id',
+                                                        updated_at = '$updated_at'
+                                                        WHERE id = '".$this->filas[0]["id"]."'";
+            if($this->actualizar_registro()){
+                return array("mensaje"=> $this->mensajeDepuracion,
+                    "respuesta"=>TRUE);
+            }else{
+                return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>TRUE);
+            }
         }
     }
     

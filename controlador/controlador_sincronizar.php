@@ -1,12 +1,12 @@
 <?php
 //seleccionar el vento y los registros para registrar
-
+header('Access-Control-Allow-Origin: *'); 
 include("../datos/orm_core.php");
 $objeto= new Participantes();
 //$objeto->huella;
 $datos=$objeto->obtener_registro_todos_los_registros();
-//var_dump($datos);
-//$datos=http_build_query(array("datos"=>array("hora_cliente"=>"00000000","peticion"=>"post","datos"=>array("a"=>1,"b"=>"2"))));
+if($datos["respuesta"]==true){
+	//$datos=http_build_query(array("datos"=>array("hora_cliente"=>"00000000","peticion"=>"post","datos"=>array("a"=>1,"b"=>"2"))));
 //$datos=array("datos"=>array("hora_cliente"=>"00000000","peticion"=>"post","datos"=>array("a"=>1,"b"=>"2")));
 //var_dump($datos["valores_consultados"]);
 //echo "<br>=======";
@@ -23,6 +23,12 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 // indicamos el tipo de petición: POST
 //curl_setopt($ch, CURLOPT_POST, TRUE);
 // definimos cada uno de los parámetros
+//var_dump($datos["valores_consultados"]);
+/*foreach ($datos["valores_consultados"] as $key => $value) {
+	var_dump($value);
+}*/
+
+
 curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query(array("datos"=>$datos["valores_consultados"])));
  
 
@@ -34,5 +40,9 @@ curl_close ($ch);
 // hacemos lo que queramos con los datos recibidos
 // por ejemplo, los mostramos
 //echo "falta respuesta de servidor";
-	print_r($remote_server_output);
+print_r($remote_server_output);
+}else{
+echo json_encode(array("mensaje"=>"No registros para sincronizar","respuesta"=>true));
+}
+
 ?>

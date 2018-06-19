@@ -51,11 +51,33 @@ class Install {
 			                $query= '';             
 			        }
 			}
-			echo '<div class="success-response sql-import-response">SQL file imported successfully</div>';	
+			return array("mensaje"=>"Base de datos creada","respuesta"=>true);
 		}else{
-			mysqli_error($conectar);
+			$conn =new mysqli(DB_HOST, DB_USUARIO, DB_CLAVE , DB_NOMBRE_DATABASE);
+
+			$query = '';
+			$curluse=new CurlUse();
+			$curluse->descargar_archivo("https://biometric.mohansoft.com/db/archivo/sql/db_ong_local.sql","../db/sql/db_ong_local.sql");
+			$sqlScript = file('../db/sql/db_ong_local.sql');
+			foreach ($sqlScript as $line)   {
+			        
+			        $startWith = substr(trim($line), 0 ,2);
+			        $endWith = substr(trim($line), -1 ,1);
+			        
+			        if (empty($line) || $startWith == '--' || $startWith == '/*' || $startWith == '//') {
+			                continue;
+			        }
+			                
+			        $query = $query . $line;
+			        if ($endWith == ';') {
+			                mysqli_query($conn,$query) or die('<div class="error-response sql-import-response">Problem in executing the SQL query <b>' . $query. '</b></div>');
+			                $query= '';             
+			        }
+			}
+			//return array("mensaje"=>mysqli_error($conectar),"respuesta"=>false);			
+			return array("mensaje"=>"Base de datos creada","respuesta"=>true);
 			//falta msn error
-			echo "falta msn error";
+			
 		}
 
 

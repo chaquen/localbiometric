@@ -30,8 +30,8 @@ class Users extends ModeloBaseDeDatos{
 
            
         }else{
-            return array("mensaje"=>$this->mensajeDepuracion,
-                "respuesta"=>TRUE,
+            return array("mensaje"=>"Usuario ya existe",
+                "respuesta"=>FALSE,
                 "valores_consultados"=>$this->filas_json);
         }
                 
@@ -67,7 +67,8 @@ class Users extends ModeloBaseDeDatos{
         if($this->consultar_registros()){
             return array("mensaje"=>$this->mensajeDepuracion,
                 "respuesta"=>TRUE,
-                "valores_consultados"=>$this->filas_json);
+                "valores_consultados"=>$this->filas[0],
+                "redireccionar"=>"menuEventos.html");
         }else{
             return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=> FALSE);
         }

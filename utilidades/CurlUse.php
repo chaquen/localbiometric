@@ -9,7 +9,7 @@ class CurlUse {
 		curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
 		$output = curl_exec($ch);
 		//Guardamos la imagen en un archivo
-		echo $destino;
+		//echo $destino;
 		$fh = fopen($destino, 'w');
 		fwrite($fh, $output);
 		fclose($fh);
