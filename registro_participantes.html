@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="estilo/evento.css" rel="stylesheet" type="text/css"/>
+        
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <!--script edgar-->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+            <script src="script_data/funciones/utilidades.js" type="text/javascript"></script>
+            <script src="script_data/funciones/formatos.js" type="text/javascript"></script>
+            <script src="script_data/funciones/peticiones_ajax.js" type="text/javascript"></script>
+            <script src="script_data/funciones/CrudBase.js" type="text/javascript"></script>
+            <script src="script_data/funciones/storage.js" type="text/javascript"></script>
+            <script src="script_data/prototipos/prototipos.js" type="text/javascript"></script>
+            <script src="script_data/globales.js" type="text/javascript"></script>
+            <script src="script_data/registro_participantes.js" type="text/javascript"></script>
+           <script src="script_data/appsw.js" type="text/javascript"></script>
+            <script src="script_data/offline.js" type="text/javascript"></script>
+            <script src="Js/inicio.js" type="text/javascript"></script>
+        <!--fin script edgar-->
+    </head>
+    <body>
+        <!--Datos del evento-->
+        
+        <div>
+            <a href="menuEventos.html" class="aVolver"><h4>Volver al Menu</h4></a>
+        </div>
+        
+        <div class="nombreEven">
+            
+
+            <h3>Participantes</h3>
+        </div>
+        
+        <!--Division del Formulario de Pobladores-->
+        <div class="contenedor" id="contenedorP">
+            
+            <i class="salir">Salir</i>
+            
+            <form id="formPobladores">
+                <ul class="identificacion">                    
+                    <li><h4><b>Identificación</b></h4></li>
+                    <li>
+                        <h5>Tipo de documento</h5>
+                        <select name="tipo_doc" required>
+                            <option value="CC">Cedula Ciudadania</option>
+                            <option value="CE">Cedula extranjera</option>
+                            <option value="PS">Passaporte</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h5>Numero Documento</h5>
+                        <input id="txt_cc" type="number" name="documento" placeholder="Documento" class="mdl-textfield__input" required>
+                    </li>
+                    <li>
+                        <h5>Lugar de Expedidión</h5>
+                        <input type="text" name="lugar_exp" placeholder="Lugar expedición" class="mdl-textfield__input" required>
+                    </li>
+                    <li>
+                        <h5>Primer Apellido</h5>
+                        <input type="text" name="pri_apellido" placeholder="Primer Apellido" class="mdl-textfield__input" required>
+                    </li>
+                    <li>
+                        <h5>Segundo Apellido</h5>
+                        <input type="text" name="seg_apellido" placeholder="Segundo Apellido" class="mdl-textfield__input" required>
+                    </li>
+                    <li>
+                        <h5>Primer Nombre</h5>
+                        <input type="text" name="pri_nombre" placeholder="Primer Nombre" class="mdl-textfield__input" required>
+                    </li>
+                    <li>
+                        <h5>Segundo Nombre</h5>
+                        <input type="text" name="seg_nombre" placeholder="Segundo Nombre" class="mdl-textfield__input" required>
+                    </li>
+                </ul>
+                <ul class="datosPersonales">
+                    <li><h4><b>Datos Personales</b></h4></li>
+
+                    <li>
+                        <h6>Departamento</h6>
+                        <input type="text" id="txt_dep_nacimiento" name="dep_nacimiento" placeholder="Departamento" list="lista_datos" class="mdl-textfield__input" required >
+                        <datalist id="lista_datos"></datalist> 
+
+                       
+                    </li>
+                    <li>
+                        <h6>Lugar de Nacimiento</h6>
+                        <input id="txt_ciud_nacimiento" type="text" name="ciud_nacimiento" placeholder="Ciudad" class="mdl-textfield__input" list="lista_datos_2" required>
+                        <datalist id="lista_datos_2"></datalist>                             
+                    </li>
+                    
+                    <li>
+                        <h6>Fecha de Nacimiento</h6>
+                        <input name="fecha_nac" type="date" required>
+                    </li>
+                    <li>
+                        <h6>Genero</h6>
+                        <select name="genero" required>
+                            <option>Hombre</option>
+                            <option>Mujer</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h6>Capacidades Diferentes</h6>
+                        <input type="text" name="cap_dife" placeholder="Capacidades" class="mdl-textfield__input" required>
+                    </li>
+                    <li>
+                        <h6>Etnia</h6>
+                        <input type="text" name="etnia" placeholder="etnia" class="mdl-textfield__input" required>
+                    </li>
+                </ul>
+                <ul class="ubicacion">
+                    <li><h4><b>Ubicación</b></h4></li>
+                    <li>
+                        <h5>Zona</h5>
+                        <input type="text" name="zona" placeholder="Zona" class="mdl-textfield__input" required>
+                    </li>
+                    <li>
+                        <h5>Municipio</h5>
+                        <input type="text" name="municipio" placeholder="Municipio" class="mdl-textfield__input" required>
+                    </li>
+                    <li>
+                        <h5>Celular</h5>
+                        <input type="number" name="celular" placeholder="Celular" class="mdl-textfield__input" required>
+                    </li>
+                    <li>
+                        <h5>Correo Electronico</h5>
+                        <input type="text" name="email" placeholder="E-mail" class="mdl-textfield__input" required>
+                    </li>
+                </ul>
+                <ul class="escolaridad">
+                    <li><h4><b>Escolaridad</b></h4></li>
+                    <li>
+                        <h5>Nivel alcanzado</h5>
+                        <select name="escolaridad" required>
+                            <option>Primaria</option>
+                            <option>Bachillerato</option>
+                            <option>Tecnico</option>
+                            <option>Tecnológico</option>
+                            <option>Universitario</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h5>Titulo obtenido</h5>
+                        <input name="titulo_obt" type="text" placeholder="Nombre Titulo" class="mdl-textfield__input" required>
+                    </li>
+                </ul>
+                <ul class="datosP">
+                    <li><h4><b>Datos Procesos PDP</b></h4></li>
+                    <li>
+                        <h5>Organizaciòn</h5>
+                        <input name="organizacion" type="text" placeholder="Organizaciòn" class="mdl-textfield__input" required>
+                    </li>
+                    <li>
+                        <h5>Proceso</h5>
+                        <input name="proceso" type="text" placeholder="Proceso" class="mdl-textfield__input" required>
+                    </li>
+                </ul>
+                <ul class="botones">
+                    <li>
+                        <input id="btnRegistrarParticiapantes" type="button"  value="Aceptar">
+                        <input id="btnCancelarParticiapantes" type="button" value="Cancelar">
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <!--Fin formulario de pobladores-->
+
+        <!--Formulario Trabajadores-->
+        <!--
+        <div class="contenedor" id="contenedorT">
+            <form id="formTrabajadores">
+                <h1>TRABAJADORES</h1>
+                <h6 class="salir">X<h6>
+                <ul class="identificacion">
+                    <li><h3>Identificación</h3></li>
+                    <li>
+                        <h4>Tipo de documento</h4>
+                        <select name="tipo_doc">
+                            <option>Cedula Ciudadania</option>
+                            <option>Cedula extranjera</option>
+                            <option>Passaporte</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h4>Numero Documento</h4>
+                        <input type="text" name="documento" placeholder="Documento" required>
+                    </li>
+                    <li>
+                        <h4>Lugar de Expedidión</h4>
+                        <input type="text" name="lugar_exp" placeholder="Lugar expedición"  required>
+                    </li>
+                    <li>
+                        <h4>Primer Apellido</h4>
+                        <input type="text" name="pri_apellido" placeholder="Primer Apellido"  required>
+                    </li>
+                    <li>
+                        <h4>Segundo Apellido</h4>
+                        <input type="text" name="seg_apellido" placeholder="Segundo Apellido"  required>
+                    </li>
+                    <li>
+                        <h4>Primer Nombre</h4>
+                        <input type="text" name="pri_nombre" placeholder="Primer Nombre"  required>
+                    </li>
+                    <li>
+                        <h4>Segundo Nombre</h4>
+                        <input type="text" name="seg_nombre" placeholder="Segundo Nombre"  required>
+                    </li>
+                </ul>
+                <ul class="datosPersonales">
+                    <li><h3>Datos Personales</h3></li>
+                    <li>
+                        <h4>Lugar de Nacimiento</h4>
+                        <input type="text" name="ciud_nacimiento" placeholder="Ciudad" required>
+                        <input type="text" name="dep_nacimiento" placeholder="Departamento" required>
+                    </li>
+                    <li>
+                        <h4>Fecha de Nacimiento</h4>
+                        <input name="fecha_nac" type="date" required>
+                    </li>
+                    <li>
+                        <h4>Genero</h4>
+                        <select name="genero" required>
+                            <option>Hombre</option>
+                            <option>Mujer</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h4>Tipo de Sangre</h4>
+                        <select name="tipo_sangre" required>
+                            <option>A</option>
+                            <option>A</option>
+                            <option>AB</option>
+                            <option>O</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h4>RH</h4>
+                        <select name="rh" required>
+                            <option>+</option>
+                            <option>-</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h4>Etnia</h4>
+                        <input type="text" name="etnia" placeholder="etnia" required>
+                    </li>
+                </ul>
+                <ul class="ubicacion">
+                    <li><h3>Ubicación</h3></li>
+                    <li>
+                        <h4>Ciudad</h4>
+                        <input type="text" name="ciudad_resi" placeholder="Ciudad" required>
+                    </li>
+                    <li>
+                        <h4>Dirección</h4>
+                        <input type="text" name="dire_vivienda" placeholder="Dirección" required>
+                    </li>
+                    <li>
+                        <h4>Barrio</h4>
+                        <input type="text" name="barrio" placeholder="Barrio" required> 
+                    </li>
+                    <li>
+                        <h4>Telefono Fijo</h4>
+                        <input type="number" name="tel_fijo" placeholder="Telefono Fijo" required>
+                    </li>
+                    <li>
+                        <h4>Celular</h4>
+                        <input type="number" name="celular" placeholder="Celular"  required>
+                    </li>
+                    <li>
+                        <h4>Correo Electronico</h4>
+                        <input type="text" name="email" placeholder="E-mail"  required>
+                    </li>
+                </ul>
+                <ul class="">
+                    <li><h3>Datos de sguridad social en salud</h3></li>
+                    <li>
+                        <h4>Regimen</h4>
+                        <select name="regimen"  required>
+                            <option>Contributivo</option>
+                            <option>Subsidiado</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h4>EPS/ARS</h4>
+                        <input type="text" name="eps_arl" placeholder="Nombre EPS/ARS" required>
+                    </li>
+                    <li>
+                        <h4>IPS</h4>
+                        <input type="text" name="ips" placeholder="Nombre IPS" required>
+                    </li>
+                    <li>
+                        <h4>Nivel de SISBEN</h4>
+                        <input type="number" name="sisben" placeholder="0" required>
+                    </li>
+                    <li>
+                        <h4>Puntaje</h4>
+                        <input type="number" name="puntaje" placeholder="0" required>
+                    </li>
+                </ul>
+                <h2>Nivel de Estudios</h2>
+                <table>
+                    <tr>
+                        <td>Nivel</td>
+                        <td>Institución</td>
+                        <td>Titulo</td>
+                        <td>Soporte</td>
+                    </tr>
+                    <tr>
+                        <td>Primaria</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Secundaria</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Superior</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Especialización</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Maestria</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Doctorado</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+
+                <ul class="botones">
+                    <li>
+                        <input id="btnRegistrarTrabajadores" type="button" value="Aceptar">
+                        <input id="btnCancelarTrabajadores" type="button" value="Cancelar">
+                    </li>
+                </ul>
+
+            </form>
+        </div>-->
+        <!--Fin Formulario Trabajadores-->
+    </body>
+</html>

@@ -43,7 +43,10 @@ function iniciar_menu_eventos(){
                     
       		},"");
 	});
-	
+	agregarEvento("btnRegistroUsuario","click",function(){
+		location.href="registro_participantes.html";
+
+	});
 
 }
 
