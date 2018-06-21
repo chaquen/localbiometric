@@ -3,7 +3,7 @@
 //agregarEventoLoad(iniciar_evento_actualizar);
 var data={id:undefined};
 function iniciar_evento_actualizar(){
-	var source = new EventSource(globales._URL_BE+'controlador/controlador_server.php?id_evento='+pos);
+	var source = new EventSource(globales._URL_BE+'controlador/controlador_server_registro_participante.php?id_evento='+pos);
 
 	source.addEventListener('message', function(event) {
 	  data = JSON.parse(event.data);
