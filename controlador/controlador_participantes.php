@@ -45,6 +45,12 @@ if(isset($_REQUEST['datos'])){
             }
        
             break;   
+         case "crearParticipanteSinEvento":
+            
+                 echo  json_encode($objeto->actualizar_recurso($post->datos->datos,$post->datos->id));
+            
+       
+            break;      
         case "consultarParticipantePendientes":
             //var_dump($post->datos->id);
         //var_dump($objeto->obtener_registro_por_valor("*","estado_registro = 'por_registrar'"));
@@ -64,6 +70,11 @@ if(isset($_REQUEST['datos'])){
                 
                 echo json_encode(array("mensaje"=>"Usuarios asociados","respuesta"=>true));    
             break;
+        case "valida_registro":
+
+            echo json_encode($objeto->obtener_registro_por_valor("id","estado_registro = 'por_registrar' "));
+
+        break;    
         default :
             echo json_encode(array("respuesta"=>FALSE,"mensaje"=>"Por favor defina una operacion o agrege una opcion en el swicth"));
             break;

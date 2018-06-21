@@ -138,11 +138,11 @@ class Eventos extends ModeloBaseDeDatos{
         }
     }
 
-    function actualizar_recurso_estado($id){
+    function actualizar_recurso_estado($id,$estado){
       
           $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
                                                         
-                                                        estado_registro = 'registrado'
+                                                        estado_evento = '$estado'
                                                         WHERE id = '$id'";
         if($this->actualizar_registro()){
             return array("mensaje"=> $this->mensajeDepuracion,
@@ -152,6 +152,22 @@ class Eventos extends ModeloBaseDeDatos{
         }
     }
 
+
+    public function actualizar_recurso_evento($where,$cambios){
+            //var_dump($where);
+            //var_dump($cambios);
+           $this->sentencia_sql="UPDATE ".$this->TABLA." SET " 
+                                                         .
+                                                            $cambios
+
+                                                         ." WHERE ".$where;
+        if($this->actualizar_registro()){
+            return array("mensaje"=> $this->mensajeDepuracion,
+                "respuesta"=>TRUE);
+        }else{
+            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=>TRUE);
+        }
+    }
 
     public function crear_detalle_evento($arr){
         foreach ($arr as $key => $value) {

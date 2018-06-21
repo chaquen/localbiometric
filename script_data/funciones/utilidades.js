@@ -484,11 +484,11 @@ function crear_data_list(id_data_list,datos,id,valor){
 
       if(existe==false && mis_llaves[l]==id){
         var opt=document.createElement("option");
-        opt.setAttribute("value",datos[clave][id]);
+        opt.setAttribute("value",datos[clave][id]+"-"+datos[clave][valor]);
         existe=true;
       }
       if(existe==true && mis_llaves[l]==valor){
-        opt.innerHTML=datos[clave][valor];
+        opt.innerHTML=datos[clave][id]+"-"+datos[clave][valor];
         sel.appendChild(opt); 
         existe=false;
         var opt=document.createElement("option");

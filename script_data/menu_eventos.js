@@ -18,13 +18,6 @@ function iniciar_menu_eventos(){
 
 	
 	console.log(globales);
-	/*registrarDato("mis_eventos",{usuario:globales._usuario},function(rs){
-		dibujar_lista_eventos(rs.datos);
-		agregar_local_storage("lsEventos",rs.datos);
-		menu();
-		menu_2();
-
-	},"");*/
 
 	agregarEvento("btnEventos","click",function(){
 			registrarDatoOff(globales._URL_BE+"controlador/controlador_eventos.php","mis_eventos",
@@ -44,7 +37,17 @@ function iniciar_menu_eventos(){
       		},"");
 	});
 	agregarEvento("btnRegistroUsuario","click",function(){
-		location.href="registro_participantes.html";
+
+		registrarDatoOff(globales._URL_BE+"controlador/controlador_participantes.php","valida_registro",
+						{usuario:globales._usuario},function(rs){
+
+							if(rs.respuesta){
+								location.href="registro_participantes.html?id="+rs.valores_consultados[0].id;		
+							}else{
+								mostrarMensaje("Por favor registra una huella");
+							}
+						});
+		
 
 	});
 

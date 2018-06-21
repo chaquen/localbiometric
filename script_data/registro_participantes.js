@@ -1,6 +1,7 @@
-
+var pos;
 function iniciar_evento_participantes(){
-
+    var d=recibirValorGet();
+    pos=d[0].split("=")[1];
 
     globales._usuario=obtener_local_storage("ssUsuario");
     if(globales._usuario==false){
@@ -17,13 +18,13 @@ function iniciar_evento_participantes(){
         if(false!=datos){
              datos.estado_registro="registrado";
              console.log(datos);
-             console.log(id);
+             console.log(pos);
              datos.created_at=horaCliente();
              datos.created_at=horaCliente();
              datos.tipo_registro="nuevo";
              datos.state=true;
                 //registrarDato("participantes",{datos:datos,id:data.id},function(rs){
-                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipante",{datos:datos,id:id,id_evento:pos},function(rs){
+                registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
                             document.getElementById("contenedorP").style.display='none';
@@ -69,7 +70,7 @@ function iniciar_evento_participantes(){
         dep=[];
         for(var el in globales._departamentos){
               
-                if(globales._departamentos[el].id== e.srcElement.value  ){
+                if(globales._departamentos[el].id == e.srcElement.value.split("-")[0]  ){
                     
                     console.log(globales._departamentos[el].ciudades);
                     dep.push(globales._departamentos[el].ciudades);
@@ -99,6 +100,13 @@ function iniciar_evento_participantes(){
                 
                 mostrarMensaje(rs);
         });
+    });
+
+    consultarDatosOff("script_data/data/colombia.json","",{},function(rs){
+        console.log(rs);
+        globales._departamentos=rs;
+        crear_data_list("txt_dep_nacimiento",rs,"id","departamento");
+        
     });
     
 }
