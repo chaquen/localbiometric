@@ -33,3 +33,7 @@ PHP Error[09-06-18 02:47:28] => {1}=>{SELECT id,estado_registro,pri_apellido,seg
 PHP Error[09-06-18 02:51:42] => {1}=>{SELECT id,estado_registro,pri_apellido,seg_apellido,pri_nombre,seg_nombre FROM participantes WHERE estado_registro = 'por_registrar'}
 PHP Error[09-06-18 02:51:44] => {1}=>{SELECT id,estado_registro,pri_apellido,seg_apellido,pri_nombre,seg_nombre FROM participantes WHERE estado_registro = 'por_registrar'}
 PHP Error[09-06-18 02:53:56] => {1}=>{SELECT id,estado_registro,pri_apellido,seg_apellido,pri_nombre,seg_nombre FROM participantes WHERE estado_registro = 'por_registrar'}
+PHP Error[12-06-18 01:00:12] => {1}=>{}
+PHP Error[12-06-18 01:00:14] => {1}=>{}
+PHP Error[12-06-18 01:11:24] => {1}=>{}
+PHP Error[12-06-18 01:11:26] => {1}=>{}
