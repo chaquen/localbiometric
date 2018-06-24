@@ -78,13 +78,21 @@ and open the template in the editor.
 
 					registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
 						if(rs.respuesta){
-							//mostrarMensaje(rs);
-                                                        dialog.showModal();
-							globales._usuario=rs.datos;	
-							location.href=rs.redireccionar;
-							agregar_local_storage("ssUsuario",globales._usuario);
+							
+							
+							    document.getElementById("tMsn").innerHTML="Bienvenido! ";
+							    document.getElementById("pMsn").innerHTML=rs.mensaje;
+							    document.getElementById("btnAceptar1").style.display="none";
+							    document.getElementById("btnAceptar2").style.display="";
+							    dialog.showModal();
+							    globales._usuario=rs.datos;	
+							    //location.href=rs.redireccionar;
+							    agregar_local_storage("ssUsuario",globales._usuario);
+							
 						}else{
-							//mostrarMensaje("Datos suministrados no concuerdan");
+							document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
+                                            		document.getElementById("pMsn").innerHTML=rs.mensaje;
+							document.getElementById("btnAceptar2").style.display="none";
                                                         dialog.showModal();
 						}					
 
@@ -93,13 +101,21 @@ and open the template in the editor.
     			}else{
     				registrarDatoOff(globales._URL_BE+"controlador/controlador_usuario.php","login_local",{usuario:datos.login,pass:datos.password},function(rs){
 						if(rs.respuesta){
-							console.log(rs);
-							mostrarMensaje(rs);
-							globales._usuario=rs.valores_consultados;	
-							location.href=rs.redireccionar;
-							agregar_local_storage("ssUsuario",globales._usuario);
+							
+							    document.getElementById("tMsn").innerHTML="Bienvenido! ";
+							    document.getElementById("pMsn").innerHTML=rs.mensaje;
+							    document.getElementById("btnAceptar1").style.display="none";
+							    document.getElementById("btnAceptar2").style.display="";
+							    dialog.showModal();
+							    globales._usuario=rs.valores_consultados;	
+							    //location.href=rs.redireccionar;
+							    agregar_local_storage("ssUsuario",globales._usuario);
+							
 						}else{
-							mostrarMensaje("Datos suministrados no concuerdan");
+							document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
+                                            		document.getElementById("pMsn").innerHTML=rs.mensaje;
+							document.getElementById("btnAceptar2").style.display="none";
+                                                        dialog.showModal();
 						}					
 
 					},"formLogIn");
@@ -109,6 +125,7 @@ and open the template in the editor.
                 }else{
                     document.getElementById("tMsn").innerHTML="Error! ";
                     document.getElementById("pMsn").innerHTML="Por favor ingresa los valores requeridos! ";
+		    document.getElementById("btnAceptar2").style.display="none";	
                     //mostrarMensaje("Datos suministrados no concuerdan");
                     dialog.showModal();
                 }
