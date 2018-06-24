@@ -132,7 +132,7 @@ class Participantes extends ModeloBaseDeDatos{
                             `detalle_participantes`.`created_at` as `created_at_1`, 
                             `detalle_participantes`.`updated_at` as `updated_at_1`,
                             `detalle_participantes`.`event_id`
-                            FROM ".trim($this->TABLA)." INNER JOIN detalle_participantes WHERE detalle_participantes.user_id = participantes.id" ;
+                            FROM ".trim($this->TABLA)." INNER JOIN detalle_participantes WHERE detalle_participantes.user_id = participantes.documento" ;
         
         
         if($this->consultar_registros()){
@@ -169,7 +169,7 @@ class Participantes extends ModeloBaseDeDatos{
 
     function obtener_registro_por_valor_join($valores_a_retornar,$valor){
          
-         $this->sentencia_sql="SELECT ". trim($valores_a_retornar)." FROM ". trim($this->TABLA)." INNER JOIN detalle_participantes ON ". trim($this->TABLA).".id = detalle_participantes.user_id";
+         $this->sentencia_sql="SELECT ". trim($valores_a_retornar)." FROM ". trim($this->TABLA)." INNER JOIN detalle_participantes ON ". trim($this->TABLA).".documento = detalle_participantes.user_id";
 
         if($valor!=""){
             $this->sentencia_sql.=" WHERE ".$valor;
@@ -238,11 +238,11 @@ class Participantes extends ModeloBaseDeDatos{
         }
     }
 
-    function actualizar_recurso_estado($id){
+    function actualizar_recurso_estado($id,$estado){
       
           $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
                                                         
-                                                        estado_registro = 'registrado'
+                                                        estado_registro = '$estado'
                                                         WHERE id = '$id'";
         if($this->actualizar_registro()){
             return array("mensaje"=> $this->mensajeDepuracion,

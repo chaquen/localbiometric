@@ -1,6 +1,7 @@
 var dep;
 var pos;
 var id;
+var participantes=[];
 function iniciar_evento_participantes(){
 
 
@@ -16,13 +17,7 @@ function iniciar_evento_participantes(){
     //onsole.log(d[0].split("=")[1]);
 
     //globales._eventos=obtener_local_storage("lsEventos");
-    for(var f in globales._eventos){
-        if(globales._eventos[f].id==pos){
-             document.getElementById("h1NombreDelEvento").innerHTML=globales._eventos[f].name;
-             document.getElementById("id_evento").value=globales._eventos[f].id;
-             break;
-        }
-    }
+    
    
     console.log(globales._eventos[pos]);
 
@@ -124,19 +119,24 @@ function iniciar_evento_participantes(){
     registrarDatoOff(globales._URL+"controlador/controlador_eventos.php","seleccionar_evento",{id_evento:pos},function(rs){
                         if(rs.respuesta==false){
                             mostrarMensaje("Error al selecciona evento");
-                          
+                            
+                        }else{
+                             console.log(eval(rs.valores_consultados)[0].id);
+                             document.getElementById("h1NombreDelEvento").innerHTML=eval(rs.valores_consultados)[0].name;
+                             document.getElementById("id_evento").value=eval(rs.valores_consultados)[0].id;
                         }
                         
+
                     
                 },"");
     
 }
 agregarEventoLoad(iniciar_evento_participantes);
 
-function dibujar_registrados(datos){
+function dibujar_registrados(){
     var div=document.getElementById("tblParticipantesRegistrados");
-    //div.innerHTML="";
-    /*var tr=document.createElement("tr");
+    div.innerHTML="";
+    var tr=document.createElement("tr");
     
     var th=document.createElement("th");
     th.className="mdl-data-table__cell--non-numeric";
@@ -158,8 +158,10 @@ function dibujar_registrados(datos){
     th.innerHTML="Segundo Apellido";
     tr.appendChild(th);
     
-    div.appendChild(tr);*/
+    div.appendChild(tr);
+    var datos=participantes;
     for(var d in datos){
+
         var tr=document.createElement("tr");
         
         var td=document.createElement("td");
@@ -189,15 +191,24 @@ function dibujar_registrados(datos){
     
     }
 }
+function agregar_a_var_participantes(dato){
+    console.log(dato);
+    var existe=false;
+    for(var f in participantes){
+        if(participantes[f].id==dato.id){
+            existe=true;
+        }
+    }
 
+    if(!existe){
+        participantes.push(dato);
+        dibujar_registrados();
+    }
+}
 function consultar_participantes(){
     consultarDatosOff(globales._URL+"controlador/controlador_participantes.php","consultarParticipantePendientes",{id:pos},function(rs){
         console.log(rs);   
-        if(rs.pendientes.respuesta){
-            var d=eval(rs.pendientes.valores_consultados[0]);
-            id=d.id;
-            document.getElementById("contenedorP").style.display='block';
-        }
+        
         var div=document.getElementById("tblParticipantesRegistrados");
         //div.innerHTML="";
         var tr=document.createElement("tr");
@@ -224,13 +235,10 @@ function consultar_participantes(){
         
         div.appendChild(tr);    
 
-        if(rs.registrados.respuesta){
-             //dibujar_registrados(eval(rs.registrados.valores_consultados));
-             dibujar_registrados(rs.registrados.valores_consultados);
-        }
 
         if(rs.verificados.respuesta){
-            dibujar_registrados(rs.verificados.valores_consultados);
+            participantes=rs.verificados.valores_consultados;
+            dibujar_registrados();
         }
         
         

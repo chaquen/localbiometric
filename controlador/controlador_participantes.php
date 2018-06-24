@@ -53,8 +53,18 @@ if(isset($_REQUEST['datos'])){
             break;      
         case "consultarParticipantePendientes":
             //var_dump($post->datos->id);
-        //var_dump($objeto->obtener_registro_por_valor("*","estado_registro = 'por_registrar'"));
-            echo  json_encode(array("pendientes"=>$objeto->obtener_registro_por_valor("id,estado_registro","estado_registro = 'por_registrar'"),"verificados"=>$objeto2->obtener_registro_por_valor("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido","participantes.estado_registro = 'verificado'"),"registrados"=>$objeto3->obtener_registro_por_valor_join("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido","participantes.estado_registro = 'registrado' AND detalle_participantes.event_id = ".$post->datos->id)));
+            $id_evento=$post->datos->id;
+            $val=$objeto->obtener_registro_por_valor("*","estado_registro = 'verificado'");
+            if($val["respuesta"]){
+                foreach ($val["valores_consultados"] as $key => $value) {
+                   //var_dump($value);
+                    $objeto2->actualizar_recurso_estado($value,"participando");             
+                }
+            }
+            
+            
+            echo  json_encode(array(
+                "verificados"=>$objeto2->obtener_registro_por_valor_join("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido","participantes.estado_registro = 'participando' AND detalle_participantes.event_id = '$id_evento' ")));
         break;     
         case "guardar_asistentes":
                 //var_dump($post);

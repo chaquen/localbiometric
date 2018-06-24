@@ -6,28 +6,32 @@ header('Cache-Control: no-cache');
 *	
 * 	
 */	
+//var_dump($_GET["id_evento"]);
 include("../datos/orm_core.php");	
+
 	
 //$salida=true;	
- function sendMsg() {	
+
    $objeto= new Participantes();	
+   $objeto2= new Participantes();  
    
-    $res=$objeto->obtener_registro_por_valor("id,estado_registro,pri_apellido,seg_apellido,pri_nombre,seg_nombre","estado_registro = 'verificado' ORDER BY updated_at DESC");	
-        	
+    $res=$objeto->obtener_registro_por_valor("id,estado_registro,pri_apellido,seg_apellido,pri_nombre,seg_nombre","estado_registro = 'verificado' OR estado_registro = 'participando' ORDER BY updated_at DESC LIMIT 1");	
+      
        	
-           //var_dump($obj[0]);	
-        if ($res["respuesta"]==true) {	
-          $obj=json_decode($res["valores_consultados"]);	
-	
-           //var_dump($res["datos"][0]->id);	
-             $id=$obj[0]->id;  	
-             $pri_nom=$obj[0]->pri_nombre;  	
-             $seg_nom=$obj[0]->seg_nombre;  	
-             $pri_ape=$obj[0]->pri_apellido;  	
-             $seg_ape=$obj[0]->seg_apellido;  	
-             $estado=$obj[0]->estado_registro;  	
-             	
-	
+          //var_dump($res["valores_consultados"][0]);	
+        if ($res["respuesta"]==true) {
+
+          //  $obj=json_decode($res["valores_consultados"][0]);	
+	         $obj=(object)$res["valores_consultados"][0];
+             //var_dump($obj->id);	
+             $id=$obj->id;  	
+             $pri_nom=$obj->pri_nombre;  	
+             $seg_nom=$obj->seg_nombre;  	
+             $pri_ape=$obj->pri_apellido;  	
+             $seg_ape=$obj->seg_apellido;  	
+             $estado=$obj->estado_registro;  	
+             $objeto2->actualizar_recurso_estado($obj->id,"participando");          	
+	   
              	
              //echo "id: $id" . PHP_EOL;	
              echo "data: {\n";	
@@ -53,7 +57,7 @@ include("../datos/orm_core.php");
          }else{	
            echo "buscando";	
          }	
- }	
+ 
  	
 
 ?> 
