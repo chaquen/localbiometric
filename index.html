@@ -73,33 +73,39 @@ and open the template in the editor.
                 
                 var datos = $("#formLogIn").serializarFormulario();
                 if(false!=datos){
-                    registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
-                        console.log(rs);
-                        console.log(rs);
-                        if(rs!==null){
-                                    if(rs.respuesta){
-                                            //mostrarMensaje(rs);
-                                            document.getElementById("tMsn").innerHTML="Bienvenido! ";
-                                            document.getElementById("pMsn").innerHTML=rs.mensaje;
-                                            document.getElementById("btnAceptar1").style.display="none";
-                                            document.getElementById("btnAceptar2").style.display="";
-                                            dialog.showModal();
-                                            globales._usuario=rs.datos;	
-                                            //location.href=rs.redireccionar;
-                                            agregar_local_storage("ssUsuario",globales._usuario);
-                                    }else{
-                                            document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
-                                            document.getElementById("pMsn").innerHTML=rs.mensaje;
-                                            
-                                            dialog.showModal();
-                                    }	
-                        }else{
-                            document.getElementById("tMsn").innerHTML="Error!";
-                            document.getElementById("pMsn").innerHTML="Datos suministrados no son correctos";
-                            dialog.showModal();                                           
-                        }
-										
+                   
+			if(navigator.onLine) {
+
+					registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
+						if(rs.respuesta){
+							//mostrarMensaje(rs);
+                                                        dialog.showModal();
+							globales._usuario=rs.datos;	
+							location.href=rs.redireccionar;
+							agregar_local_storage("ssUsuario",globales._usuario);
+						}else{
+							//mostrarMensaje("Datos suministrados no concuerdan");
+                                                        dialog.showModal();
+						}					
+
 					},"formLogIn");
+
+    			}else{
+    				registrarDatoOff(globales._URL_BE+"controlador/controlador_usuario.php","login_local",{usuario:datos.login,pass:datos.password},function(rs){
+						if(rs.respuesta){
+							console.log(rs);
+							mostrarMensaje(rs);
+							globales._usuario=rs.valores_consultados;	
+							location.href=rs.redireccionar;
+							agregar_local_storage("ssUsuario",globales._usuario);
+						}else{
+							mostrarMensaje("Datos suministrados no concuerdan");
+						}					
+
+					},"formLogIn");
+
+						
+    			}
                 }else{
                     document.getElementById("tMsn").innerHTML="Error! ";
                     document.getElementById("pMsn").innerHTML="Por favor ingresa los valores requeridos! ";
