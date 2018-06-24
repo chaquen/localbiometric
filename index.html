@@ -42,42 +42,84 @@ and open the template in the editor.
                 <p class="clearfix"> 
                     <!--<a href="#" class="log-twitter">Recuperar Contraseña</a>    -->
                     <!--<a href="menuEventos.html" class="log-twitter">Ingresar</a>-->
-                    <input type="button" class="log-twitter" value="Recuperar Contraseña"/>
+                    
                     <input id="btnLogIn" type="button" class="log-twitter" value="Ingresar"/>
                 </p>
                     
                 
-            </form>​​
+            </form>
         </section>
-    </body>
-    <script type="text/javascript">
-        $(function(){
-            $(".showpassword").each(function(index,input) {
-                var $input = $(input);
-                $("<p class='opt'/>").append(
-                    $("<input type='checkbox' class='showpasswordcheckbox' id='showPassword' />").click(function() {
-                        var change = $(this).is(":checked") ? "text" : "password";
-                        var rep = $("<input placeholder='Password' type='" + change + "' />")
-                            .attr("id", $input.attr("id"))
-                            .attr   ("name", $input.attr("name"))
-                            .attr('class', $input.attr('class'))
-                            .val($input.val())
-                            .insertBefore($input);
-                        $input.remove();
-                        $input = rep;
-                    })
-                ).append($("<label for='showPassword'/>").text("Show password")).insertAfter($input.parent());
-            });
-
-            $('#showPassword').click(function(){
-                if($("#showPassword").is(":checked")) {
-                    $('.icon-lock').addClass('icon-unlock');
-                    $('.icon-unlock').removeClass('icon-lock');    
-                } else {
-                    $('.icon-unlock').addClass('icon-lock');
-                    $('.icon-lock').removeClass('icon-unlock');
+        
+        <dialog class="mdl-dialog">
+            <h4 id="tMsn" class="mdl-dialog__title"></h4>
+            <div class="mdl-dialog__content">
+                <p id="pMsn">
+               
+              </p>
+            </div>
+            <div class="mdl-dialog__actions">
+              <button id="btnAceptar1" type="button" class="mdl-button close">Aceptar</button>
+              <button id="btnAceptar2" style="display:none" type="button" class="mdl-button close">Continuar</button>
+             
+            </div>
+          </dialog>
+        <script>
+            var dialog = document.querySelector('dialog');
+            var showDialogButton = document.querySelector('#btnLogIn');
+            if (! dialog.showModal) {
+              dialogPolyfill.registerDialog(dialog);
+            }
+            showDialogButton.addEventListener('click', function() {
+                
+                var datos = $("#formLogIn").serializarFormulario();
+                if(false!=datos){
+                    registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
+                        console.log(rs);
+                        console.log(rs);
+                        if(rs!==null){
+                                    if(rs.respuesta){
+                                            //mostrarMensaje(rs);
+                                            document.getElementById("tMsn").innerHTML="Bienvenido! ";
+                                            document.getElementById("pMsn").innerHTML=rs.mensaje;
+                                            document.getElementById("btnAceptar1").style.display="none";
+                                            document.getElementById("btnAceptar2").style.display="";
+                                            dialog.showModal();
+                                            globales._usuario=rs.datos;	
+                                            //location.href=rs.redireccionar;
+                                            agregar_local_storage("ssUsuario",globales._usuario);
+                                    }else{
+                                            document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
+                                            document.getElementById("pMsn").innerHTML=rs.mensaje;
+                                            
+                                            dialog.showModal();
+                                    }	
+                        }else{
+                            document.getElementById("tMsn").innerHTML="Error!";
+                            document.getElementById("pMsn").innerHTML="Datos suministrados no son correctos";
+                            dialog.showModal();                                           
+                        }
+										
+					},"formLogIn");
+                }else{
+                    document.getElementById("tMsn").innerHTML="Error! ";
+                    document.getElementById("pMsn").innerHTML="Por favor ingresa los valores requeridos! ";
+                    //mostrarMensaje("Datos suministrados no concuerdan");
+                    dialog.showModal();
                 }
+                
+                
+                
+                
+              
             });
-        });
-    </script>
+            dialog.querySelector('.close').addEventListener('click', function() {
+              dialog.close();
+            });
+            document.getElementById("btnAceptar2").addEventListener("click",function(){
+                
+                location.href="menuEventos.html";
+            });
+            
+          </script>
+    </body>
 </html>
