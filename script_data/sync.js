@@ -20,4 +20,4 @@ function iniciar_evento_sync(){
 }
 
 
-agregarEventoLoad(iniciar_evento_sync);
+//agregarEventoLoad(iniciar_evento_sync);
