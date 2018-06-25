@@ -9,31 +9,9 @@ if(isset($_REQUEST['datos'])){
     $operacion=$post->operacion;
     $objeto= new Participantes();//Mi clase  modelo 
     $objeto2= new Participantes();//Mi clase  modelo 
-<<<<<<< HEAD
-   
-=======
-    $objeto3= new Participantes();//Mi clase  modelo 
-    $evento=new Eventos();
->>>>>>> 1f2976bf5e1a1ac083ca00954ca9e217fb12bf19
+
     switch($operacion){
-        case "crearEmpleado":
-            
-            /*
-             * AQUI DOY VALOR A CADA UNA DE LAS PROPIEDADES DE LA CLASE PARA INSERTAR LOS VALORES
-             */
-            /*
-             * Para acceder a cada una de las propiedaes enviadas en el metodo POST se debe acceder desde objeto 
-             * $post a la proiedad datos ejemplo
-             * $post->datos->miDatoEnviadoDesdeElCliente
-             */
-            //$objeto->documento=trim($post->datos->documento);
-            //$objeto->correo=  trim($post->datos->correo);
-            
-            
-            
-            
-            break;
-            
+      
          case "crearParticipante":
             //var_dump($post);    
             //var_dump($post->datos->id);    
@@ -49,7 +27,7 @@ if(isset($_REQUEST['datos'])){
             }
        
             break;   
-<<<<<<< HEAD
+
         case "consultarParticipante":
             $res=$objeto->obtener_registro_por_valor("id,estado_registro,pri_apellido,seg_apellido,pri_nombre,seg_nombre","estado_registro = 'por_registrar'");
             $res2=$objeto2->obtener_registro_por_valor("id,estado_registro,pri_apellido,seg_apellido,pri_nombre,seg_nombre","estado_registro = 'registrado'");
@@ -75,7 +53,7 @@ if(isset($_REQUEST['datos'])){
                        "registrados"=>$d2
                         )
                     );
-=======
+
          case "crearParticipanteSinEvento":
             
                  echo  json_encode($objeto->actualizar_recurso($post->datos->datos,$post->datos->id));
@@ -84,9 +62,23 @@ if(isset($_REQUEST['datos'])){
             break;      
         case "consultarParticipantePendientes":
             //var_dump($post->datos->id);
+
         //var_dump($objeto->obtener_registro_por_valor("*","estado_registro = 'por_registrar'"));
             echo  json_encode(array("pendientes"=>$objeto->obtener_registro_por_valor("id,estado_registro","estado_registro = 'por_registrar'"),"verificados"=>$objeto2->obtener_registro_por_valor("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido","participantes.estado_registro = 'verificado'"),"registrados"=>$objeto3->obtener_registro_por_valor_join("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido","participantes.estado_registro = 'registrado' AND detalle_participantes.event_id = ".$post->datos->id)));
->>>>>>> 1f2976bf5e1a1ac083ca00954ca9e217fb12bf19
+
+            $id_evento=$post->datos->id;
+            $val=$objeto->obtener_registro_por_valor("*","estado_registro = 'verificado'");
+            if($val["respuesta"]){
+                foreach ($val["valores_consultados"] as $key => $value) {
+                   //var_dump($value);
+                    $objeto2->actualizar_recurso_estado($value,"participando");             
+                }
+            }
+            
+            
+            echo  json_encode(array(
+                "verificados"=>$objeto2->obtener_registro_por_valor_join("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido","participantes.estado_registro = 'participando' AND detalle_participantes.event_id = '$id_evento' ")));
+
         break;     
         case "guardar_asistentes":
                 //var_dump($post);
