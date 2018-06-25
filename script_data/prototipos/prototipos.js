@@ -7,7 +7,7 @@
 function miObjetoAjax(url,datos,peticion){
    
     this.datos=datos;
-    this.url=globales._URL+url;    
+    this.url=globales._URL_ONLINE+url;    
     this.peticion=peticion;
     this.respuestaServidor;    
     this.peticion_ajax=funPeticion;    

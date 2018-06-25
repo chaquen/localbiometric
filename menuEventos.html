@@ -64,8 +64,8 @@ and open the template in the editor.
                 </li>
 
 
-                <li>
-                    <a href="index.html"><h4>Salir</h4></a>
+                <li id="btnSalir">
+                    <a ><h4>Salir</h4></a>
 
 
                 </li>
@@ -77,81 +77,15 @@ and open the template in the editor.
             <div id="wrapper">
                 <i class="volver">CERRAR</i>
                 <ul class="menu" id="liEventos">
-                    <li class="item1"><a href="#">Nombre completo del evento <span>3</span></a>
-                        <ul>
-                            <li><a>Nombre del archivo numero 1<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 2<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 3<span>Descargar</span></a></li>
-                            <li><a href="participantes.html">Registrar Participantes</a></li>
-                        </ul>
-                    </li>
-                    <li class="item2"><a href="#">Nombre completo del evento <span>2</span></a>
-                        <ul>
-                            <li><a>Nombre del archivo numero 1<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 2<span>Descargar</span></a></li>
-                            <li><a href="participantes.html">Registrar Participantes</a></li>
-
-                        </ul>
-                    </li>
-                    <li class="item3"><a href="#">Nombre completo del evento<span>6</span></a>
-                        <ul>
-                            <li><a>Nombre del archivo numero 1<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 2<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 3<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 4<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 5<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 6<span>Descargar</span></a></li>
-                            <li><a href="participantes.html">Registrar Participantes</a></li>
-                        </ul>
-                    </li>
-                    <li class="item4"><a href="#">Nombre completo del evento<span>3</span></a>
-                        <ul>
-                            <li><a>Nombre del archivo numero 1<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 2<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 3<span>Descargar</span></a></li>
-                            <li><a href="participantes.html">Registrar Participantes</a></li>
-                        </ul>
-                    </li>
-                    <li class="item5"><a href="#">Nombre completo del evento<span>4</span></a>
-                        <ul>
-                            <li><a>Nombre del archivo numero 1<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 2<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 3<span>Descargar</span></a></li>
-                            <li><a>Nombre del archivo numero 4<span>Descargar</span></a></li>
-                            <li><a href="participantes.html">Registrar Participantes</a></li>
-
-                        </ul>
-                    </li>
+                   
                 </ul>
                 <i class="volver">CERRAR</i>
             </div> 
         </div>
         
-        <div class="mensaje" id="msjInstalando">
-            <h3>Instalando</h3>
-            <p>Se esta realizando el proceso de instalación, por favor no cierre el navegador.</p>
-            <ul>
-                <!--<li><h5>Primer paso</h5></li>
-                <li><h5>Segundo paso</h5></li>
-                <li><h5>Tercer paso</h5></li>
-                <li><h5>Cuarto paso</h5></li>
-                <li><h5>Quinto paso</h5></li>
-                <li><h5>Sexto paso</h5></li>-->
-                <li>
-                    <input type="button" value="Aceptar" id="btnAceptaIns">
-                </li>
-            </ul>
-        </div>
         
-        <div class="mensaje" id="mensajeFin">
-            <h5>La Instalación termino exitosamente</h5>
-            <input type="button" value="Aceptar" id="btnAceptarTotal">
-        </div>
         
-        <div class="mensaje" id="msjIns">
-            <h4>Este proceso tardar un poco se notificara tan pronto termine </h4>
-            <input type="button" value="Continuar" id="btnAceptarSin">
-        </div>
+       
         
         <div class="menuAdmin" id="menuRepor">
             <ul>
@@ -247,8 +181,11 @@ and open the template in the editor.
                         document.getElementById("divLoad").style.display="none";
 
                                         document.getElementById("tMsn").innerHTML="Preparando estación de trabajo! ";
-
-                                        document.getElementById("pMsn").innerHTML=rs.mensaje;
+                                        var msn="";
+                                        for(var f in rs){
+                                            msn=+rs[f].mensaje+" </br>";
+                                        }    
+                                        document.getElementById("pMsn").innerHTML=msn;
 
 
                                         dialog.showModal();
@@ -258,7 +195,7 @@ and open the template in the editor.
 
                                 document.getElementById("tMsn").innerHTML="Opps! algo ha salido mal preparación estación de trabajo! ";
 
-                                document.getElementById("pMsn").innerHTML=rs.mensaje;
+                                document.getElementById("pMsn").innerHTML=rs[0].mensaje;
 
 
                                 dialog.showModal();

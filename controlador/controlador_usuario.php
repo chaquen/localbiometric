@@ -59,6 +59,7 @@ if(isset($_REQUEST['datos'])){
                 echo json_encode($objeto->obtener_registro_por_valor("documento","documento = '".$post->datos->cc."'"));
 
             break;    
+        
 
         default :
             echo json_encode(array("respuesta"=>FALSE,"mensaje"=>"Por favor defina una operacion o agrege una opcion en el swicth"));

@@ -16,11 +16,6 @@ $(document).ready(function(){
         
     });
     
-    $('#btnInstalar').click(function(){
-        $('#menuAdmin').fadeOut('fast');
-        $('#msjInstalando').fadeIn('slow');
-    });
-    
     $('#btnAceptaIns').click(function(){
         $('#msjInstalando').fadeOut('fast');
         $('#mensajeFin').fadeIn('slow');
@@ -29,11 +24,6 @@ $(document).ready(function(){
     $('#btnAceptarTotal').click(function(){
         $('#mensajeFin').fadeOut('fast');
         $('#menuAdmin').fadeIn('slow');
-    });
-    
-    $('#btnSincronizar').click(function(){
-        $('#menuAdmin').fadeOut('fast');
-        $('#msjIns').fadeIn('slow');
     });
     
     $('#btnReportes').click(function(){

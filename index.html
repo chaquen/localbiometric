@@ -37,7 +37,7 @@ and open the template in the editor.
                 </p>
                 <p class="float">
                     <label for="password"><i class="icon-lock"></i>Contraseña</label>
-                    <input type="password" name="password" placeholder="Contraseña" required>
+                    <input id="pasClave" type="password" name="password" placeholder="Contraseña" required>
                 </p>
                 <p class="clearfix"> 
                     <!--<a href="#" class="log-twitter">Recuperar Contraseña</a>    -->
@@ -65,18 +65,19 @@ and open the template in the editor.
           </dialog>
         <script>
             var dialog = document.querySelector('dialog');
-            var showDialogButton = document.querySelector('#btnLogIn');
+            
             if (! dialog.showModal) {
               dialogPolyfill.registerDialog(dialog);
             }
+            var showDialogButton = document.querySelector('#btnLogIn');
             showDialogButton.addEventListener('click', function() {
                 
                 var datos = $("#formLogIn").serializarFormulario();
                 if(false!=datos){
                    
-			if(navigator.onLine) {
+		            if(navigator.onLine) {
 
-					registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
+					 registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
 						if(rs.respuesta){
 							
 							
@@ -96,10 +97,10 @@ and open the template in the editor.
                                                         dialog.showModal();
 						}					
 
-					},"formLogIn");
+					 },"formLogIn");
 
-    			}else{
-    				registrarDatoOff(globales._URL_BE+"controlador/controlador_usuario.php","login_local",{usuario:datos.login,pass:datos.password},function(rs){
+    			   }else{
+    				 registrarDatoOff(globales._URL_BE+"controlador/controlador_usuario.php","login_local",{usuario:datos.login,pass:datos.password},function(rs){
 						if(rs.respuesta){
 							
 							    document.getElementById("tMsn").innerHTML="Bienvenido! ";
@@ -121,19 +122,90 @@ and open the template in the editor.
 					},"formLogIn");
 
 						
-    			}
+    			   }
                 }else{
                     document.getElementById("tMsn").innerHTML="Error! ";
                     document.getElementById("pMsn").innerHTML="Por favor ingresa los valores requeridos! ";
-		    document.getElementById("btnAceptar2").style.display="none";	
+		              document.getElementById("btnAceptar2").style.display="none";	
                     //mostrarMensaje("Datos suministrados no concuerdan");
                     dialog.showModal();
                 }
-                
-                
-                
-                
-              
+            });
+            var pasClave = document.querySelector('#pasClave');
+            pasClave.addEventListener('keypress', function(e) {
+                console.log(e.keypress);
+                console.log(e.KeyPress);
+                console.log(e.key);
+                if(e.key=="Enter"){
+
+                    var datos = $("#formLogIn").serializarFormulario();
+                    if(false!=datos){
+                       
+                        if(navigator.onLine) {
+
+                         registrarDato("login",{usuario:datos.login,pass:datos.password},function(rs){
+                            if(rs!=null){
+                                    if(rs.respuesta){
+                                
+                                        
+                                            document.getElementById("tMsn").innerHTML="Bienvenido! ";
+                                            document.getElementById("pMsn").innerHTML=rs.mensaje;
+                                            document.getElementById("btnAceptar1").style.display="none";
+                                            document.getElementById("btnAceptar2").style.display="";
+                                            dialog.showModal();
+                                            globales._usuario=rs.datos; 
+                                            //location.href=rs.redireccionar;
+                                            agregar_local_storage("ssUsuario",globales._usuario);
+                                        
+                                    }else{
+                                        document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
+                                                                document.getElementById("pMsn").innerHTML=rs.mensaje;
+                                        document.getElementById("btnAceptar2").style.display="none";
+                                                                    dialog.showModal();
+                                    }                   
+
+                            }else{
+                                 document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
+                                                                document.getElementById("pMsn").innerHTML="Ingresa los datos necesarios";
+                                        document.getElementById("btnAceptar2").style.display="none";
+                                                                    dialog.showModal();
+                            }
+                           
+                         },"formLogIn");
+
+                       }else{
+                         registrarDatoOff(globales._URL_BE+"controlador/controlador_usuario.php","login_local",{usuario:datos.login,pass:datos.password},function(rs){
+                            if(rs.respuesta){
+                                
+                                    document.getElementById("tMsn").innerHTML="Bienvenido! ";
+                                    document.getElementById("pMsn").innerHTML=rs.mensaje;
+                                    document.getElementById("btnAceptar1").style.display="none";
+                                    document.getElementById("btnAceptar2").style.display="";
+                                    dialog.showModal();
+                                    globales._usuario=rs.valores_consultados;   
+                                    //location.href=rs.redireccionar;
+                                    agregar_local_storage("ssUsuario",globales._usuario);
+                                
+                            }else{
+                                document.getElementById("tMsn").innerHTML="Algo ha salido mal!";
+                                                        document.getElementById("pMsn").innerHTML=rs.mensaje;
+                                document.getElementById("btnAceptar2").style.display="none";
+                                                            dialog.showModal();
+                            }                   
+
+                        },"formLogIn");
+
+                            
+                       }
+                    }else{
+                        document.getElementById("tMsn").innerHTML="Error! ";
+                        document.getElementById("pMsn").innerHTML="Por favor ingresa los valores requeridos! ";
+                          document.getElementById("btnAceptar2").style.display="none";  
+                        //mostrarMensaje("Datos suministrados no concuerdan");
+                        dialog.showModal();
+                    }
+
+                }
             });
             dialog.querySelector('.close').addEventListener('click', function() {
               dialog.close();
