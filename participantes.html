@@ -131,11 +131,24 @@ and open the template in the editor.
                     <li><h4><b>Ubicación</b></h4></li>
                     <li>
                         <h5>Zona</h5>
-                        <input type="text" name="zona" placeholder="Zona" class="mdl-textfield__input" required>
+                        <select name="zona">
+                            <option value="urbana">Urbana</option>
+                            <option value="rural">Rural</option>
+                        </select>
+                        <!--<input type="text" name="zona" placeholder="Zona" class="mdl-textfield__input" required>-->
+                    </li>
+                    <li>
+                        <h6>Departamento</h6>
+                        <input type="text" id="txt_dep_2" placeholder="Departamento" list="lista_datos_dep_2" class="mdl-textfield__input" required >
+                        <datalist id="lista_datos_dep_2"></datalist> 
+
+                       
                     </li>
                     <li>
                         <h5>Municipio</h5>
-                        <input type="text" name="municipio" placeholder="Municipio" class="mdl-textfield__input" required>
+                        <input type="text" id="txt_mun_2" name="municipio" placeholder="Municipio" class="mdl-textfield__input" list="lista_datos_mun_2" required>
+                        <datalist id="lista_datos_mun_2"></datalist> 
+
                     </li>
                     <li>
                         <h5>Celular</h5>
