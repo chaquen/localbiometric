@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" href="estilo/mdl/material.min.css">
+        <script src="estilo/mdl/material.min.js"></script>
+        <link href="estilo/evento.css" rel="stylesheet" type="text/css"/>
+        
+    </head>
+    <body>
+        <div class="contenedor" id="contenedorP">
+            
+            <a href="menuEventos.html"><i class="salir">Volver al Menu</i></a>
+            <form id="formPobladores">
+                <ul class="identificacion">                    
+                    <li><h4><b>Identificación</b></h4></li>
+                    <li>
+                        <select name="tipo_doc" required>
+                            <option>--Tipo de Documento--</option>
+                            <option value="CC">Cedula Ciudadania</option>
+                            <option value="CE">Cedula extranjera</option>
+                            <option value="PS">Passaporte</option>
+                        </select>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Documento</label>
+                        </div>
+                    </li>
+                    
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Primer Apellido</label>
+                        </div>
+                    </li>
+                    
+                </ul>
+                <ul class="datosPersonales">
+                    <li><h4><b>Datos Personales</b></h4></li>
+
+                    <li>
+                        <h6>Departamento</h6>
+                        <input type="text" id="txt_dep_nacimiento" name="dep_nacimiento" placeholder="Departamento" list="lista_datos" class="mdl-textfield__input" required >
+                        <datalist id="lista_datos"></datalist> 
+
+                       
+                    </li>
+                    <li>
+                        <h6>Lugar de Nacimiento</h6>
+                        <input id="txt_ciud_nacimiento" type="text" name="ciud_nacimiento" placeholder="Ciudad" class="mdl-textfield__input" list="lista_datos_2" required>
+                        <datalist id="lista_datos_2"></datalist>                             
+                    </li>
+                    
+                    <li>
+                        <h6>Edad</h6>
+                        <select>
+                            <option>--18 a 28--</option>
+                            <option>--29 a 38--</option>
+                            <option>--49 a 58--</option>
+                            <option>--59 a 68--</option>
+                        </select>
+                    </li>
+                    <li>
+                        <h6>Genero</h6>
+                        <select name="genero" required>
+                            <option>Hombre</option>
+                            <option>Mujer</option>
+                        </select>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Capacidades Diferentes</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Etnia</label>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="ubicacion">
+                    <li><h4><b>Ubicación</b></h4></li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Zona</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Municipio</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Celular</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Email</label>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="escolaridad">
+                    <li><h4><b>Escolaridad</b></h4></li>
+                    <li>
+                        <h5>Nivel alcanzado</h5>
+                        <select name="escolaridad" required>
+                            <option>Primaria</option>
+                            <option>Bachillerato</option>
+                            <option>Tecnico</option>
+                            <option>Tecnológico</option>
+                            <option>Universitario</option>
+                        </select>
+                    </li>
+                </ul>
+                <ul class="datosP">
+                    <li><h4><b>Datos Procesos PDP</b></h4></li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Organización</label>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <label class="mdl-textfield__label" for="sample3">Proceso</label>
+                        </div>
+                    </li>
+                </ul>
+                <ul class="botones">
+                    <li>
+                        <input id="btnRegistrarParticiapantes" type="button"  value="Generar Informe">
+                        <input id="btnCancelarParticiapantes" type="button" value="Cancelar">
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </body>
+</html>

@@ -14,7 +14,7 @@ if($datos["respuesta"]==true){
 $ch = curl_init();
 // definimos la URL a la que hacemos la petición
 curl_setopt($ch, CURLOPT_URL,"https://biometric.mohansoft.com/sync");
-//echo ":)";
+
 //curl_setopt($ch, CURLOPT_URL,"http://localhost/api_biometric/sync");
 
 // recibimos la respuesta y la guardamos en una variable

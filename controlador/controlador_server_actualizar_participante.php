@@ -57,7 +57,5 @@ include("../datos/orm_core.php");
          }else{	
            echo "buscando";	
          }	
- 
- 	
 
 ?> 
