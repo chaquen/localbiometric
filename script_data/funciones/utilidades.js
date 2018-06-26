@@ -536,7 +536,7 @@ function crear_select(id_select,datos,id,valor){
           var opt=document.createElement("option");
           opt.innerHTML="SELECCIONA UNA OPCION";
           opt.setAttribute("value","0");
-          sel.appendChild(opt); 
+          //sel.appendChild(opt); 
           
        
         Object.keys(datos).forEach(function(clave) {

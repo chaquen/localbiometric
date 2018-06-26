@@ -13,18 +13,38 @@ and open the template in the editor.
         <link rel="stylesheet" href="estilo/mdl/material.min.css">
         <script src="estilo/mdl/material.min.js"></script>
         <link href="estilo/evento.css" rel="stylesheet" type="text/css"/>
+        <script src="script_data/jquery.js"></script>
+        <script src="script_data/funciones/utilidades.js" type="text/javascript"></script>
+        <script src="script_data/funciones/formatos.js" type="text/javascript"></script>
+        <script src="script_data/funciones/peticiones_ajax.js" type="text/javascript"></script>
+        <script src="script_data/funciones/CrudBase.js" type="text/javascript"></script>
+        <script src="script_data/funciones/storage.js" type="text/javascript"></script>
+        <script src="script_data/prototipos/prototipos.js" type="text/javascript"></script>
+        <script src="script_data/globales.js" type="text/javascript"></script>
+        <script src="script_data/reportes.js" type="text/javascript"></script>
         
     </head>
     <body>
         <div class="contenedor" id="contenedorP">
             
             <a href="menuEventos.html"><i class="salir">Volver al Menu</i></a>
-            <form id="formPobladores">
-                <ul class="identificacion">                    
+            <form id="formReportes">
+                <ul class="identificacion">   
+
+                    <li><h4><b>Eventos</b></h4>
+
+                         <select id="selEventos">
+                           
+                        </select>
+
+
+                    </li>
+                  
+
                     <li><h4><b>Identificación</b></h4></li>
                     <li>
-                        <select name="tipo_doc" required>
-                            <option>--Tipo de Documento--</option>
+                        <select name="tipo_doc" >
+                            <option value="0">--Tipo de Documento--</option>
                             <option value="CC">Cedula Ciudadania</option>
                             <option value="CE">Cedula extranjera</option>
                             <option value="PS">Passaporte</option>
@@ -32,61 +52,62 @@ and open the template in the editor.
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="sample3">
-                            <label class="mdl-textfield__label" for="sample3">Documento</label>
+                            <input class="mdl-textfield__input" type="text" id="txt_doc" name="">
+                            <label class="mdl-textfield__label" for="sample1" >Documento</label>
                         </div>
                     </li>
                     
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="sample3">
-                            <label class="mdl-textfield__label" for="sample3">Primer Apellido</label>
+                            <input class="mdl-textfield__input" type="text" id="sample3"  name="nombre">
+                            <label class="mdl-textfield__label" for="sample3">Nombre</label>
                         </div>
                     </li>
                     
                 </ul>
                 <ul class="datosPersonales">
+                    
                     <li><h4><b>Datos Personales</b></h4></li>
 
                     <li>
                         <h6>Departamento</h6>
-                        <input type="text" id="txt_dep_nacimiento" name="dep_nacimiento" placeholder="Departamento" list="lista_datos" class="mdl-textfield__input" required >
+                        <input type="text" id="txt_dep_nacimiento" name="dep_nacimiento" placeholder="Departamento" list="lista_datos" class="mdl-textfield__input"  >
                         <datalist id="lista_datos"></datalist> 
 
                        
                     </li>
                     <li>
                         <h6>Lugar de Nacimiento</h6>
-                        <input id="txt_ciud_nacimiento" type="text" name="ciud_nacimiento" placeholder="Ciudad" class="mdl-textfield__input" list="lista_datos_2" required>
+                        <input id="txt_ciud_nacimiento" type="text" name="ciud_nacimiento" placeholder="Ciudad" class="mdl-textfield__input" list="lista_datos_2" >
                         <datalist id="lista_datos_2"></datalist>                             
                     </li>
                     
                     <li>
                         <h6>Edad</h6>
-                        <select>
-                            <option>--18 a 28--</option>
-                            <option>--29 a 38--</option>
-                            <option>--49 a 58--</option>
-                            <option>--59 a 68--</option>
+                        <select name="edad">
+                            <option value="18-28">--18 a 28--</option>
+                            <option value="29-38">--29 a 38--</option>
+                            <option value="49-58">--49 a 58--</option>
+                            <option value="59-99">--59 a 99--</option>
                         </select>
                     </li>
                     <li>
                         <h6>Genero</h6>
-                        <select name="genero" required>
+                        <select name="genero" >
                             <option>Hombre</option>
                             <option>Mujer</option>
                         </select>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="sample3">
-                            <label class="mdl-textfield__label" for="sample3">Capacidades Diferentes</label>
+                            <input class="mdl-textfield__input" type="text" id="sample3" name="cap_dife">
+                            <label class="mdl-textfield__label" for="sample3" >Capacidades Diferentes</label>
                         </div>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="sample3">
-                            <label class="mdl-textfield__label" for="sample3">Etnia</label>
+                            <input class="mdl-textfield__input" type="text" id="sample3" name="etnia">
+                            <label class="mdl-textfield__label" for="sample3" >Etnia</label>
                         </div>
                     </li>
                 </ul>
@@ -94,25 +115,27 @@ and open the template in the editor.
                     <li><h4><b>Ubicación</b></h4></li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="sample3">
-                            <label class="mdl-textfield__label" for="sample3">Zona</label>
+                           <select name="zona" >
+                            <option value="urbana">Urbana</option>
+                            <option value="rural">Rural</option>
+                        </select>
                         </div>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <input class="mdl-textfield__input" type="text" id="sample3" name="municipio">
                             <label class="mdl-textfield__label" for="sample3">Municipio</label>
                         </div>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <input class="mdl-textfield__input" type="text" id="sample3" name="celular">
                             <label class="mdl-textfield__label" for="sample3">Celular</label>
                         </div>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <input class="mdl-textfield__input" type="text" id="sample3" name="email">
                             <label class="mdl-textfield__label" for="sample3">Email</label>
                         </div>
                     </li>
@@ -121,7 +144,7 @@ and open the template in the editor.
                     <li><h4><b>Escolaridad</b></h4></li>
                     <li>
                         <h5>Nivel alcanzado</h5>
-                        <select name="escolaridad" required>
+                        <select name="escolaridad" >
                             <option>Primaria</option>
                             <option>Bachillerato</option>
                             <option>Tecnico</option>
@@ -134,24 +157,28 @@ and open the template in the editor.
                     <li><h4><b>Datos Procesos PDP</b></h4></li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <input class="mdl-textfield__input" type="text" id="sample3" name="organizacion">
                             <label class="mdl-textfield__label" for="sample3">Organización</label>
                         </div>
                     </li>
                     <li>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                            <input class="mdl-textfield__input" type="text" id="sample3">
+                            <input class="mdl-textfield__input" type="text" id="sample3" name="proceso">
                             <label class="mdl-textfield__label" for="sample3">Proceso</label>
                         </div>
                     </li>
                 </ul>
                 <ul class="botones">
                     <li>
-                        <input id="btnRegistrarParticiapantes" type="button"  value="Generar Informe">
+                        <input id="btnReporteGeneral" type="button"  value="Generar Informe">
                         <input id="btnCancelarParticiapantes" type="button" value="Cancelar">
                     </li>
                 </ul>
             </form>
+        </div>
+        <!--resultados-->
+        <div>
+            <table id="tblListaGeneral" class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
         </div>
     </body>
 </html>

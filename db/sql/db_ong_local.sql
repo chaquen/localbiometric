@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2018 at 06:12 AM
+-- Generation Time: Jun 26, 2018 at 07:26 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -34,7 +34,7 @@ CREATE TABLE `detalle_participantes` (
   `event_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -45,18 +45,18 @@ CREATE TABLE `detalle_participantes` (
 CREATE TABLE `eventos` (
   `id` int(10) UNSIGNED NOT NULL,
   `id_ref` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
   `date` datetime NOT NULL,
-  `city` varchar(256) COLLATE utf8_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `atachments` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `city` varchar(256) NOT NULL,
+  `address` varchar(255) NOT NULL,
+  `atachments` varchar(255) NOT NULL,
   `state` tinyint(1) NOT NULL,
-  `img` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `estado_evento` enum('activo','suspendido') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'suspendido',
+  `img` varchar(255) NOT NULL,
+  `estado_evento` enum('activo','suspendido') NOT NULL DEFAULT 'suspendido',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -65,9 +65,9 @@ CREATE TABLE `eventos` (
 --
 
 CREATE TABLE `migrations` (
-  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `migration` varchar(255) NOT NULL,
   `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -77,34 +77,35 @@ CREATE TABLE `migrations` (
 
 CREATE TABLE `participantes` (
   `id` int(10) UNSIGNED NOT NULL,
-  `tipo_doc` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `tipo_doc` varchar(255) DEFAULT NULL,
   `documento` int(11) UNSIGNED DEFAULT NULL,
-  `lugar_exp` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pri_apellido` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `seg_apellido` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `pri_nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `seg_nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `ciud_nacimiento` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `dep_nacimiento` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fecha_nac` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `genero` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `cap_dife` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `etnia` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `zona` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `municipio` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `celular` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `escolaridad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `titulo_obt` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `proceso` varchar(256) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `organizacion` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `lugar_exp` varchar(255) DEFAULT NULL,
+  `pri_apellido` varchar(255) DEFAULT NULL,
+  `seg_apellido` varchar(255) DEFAULT NULL,
+  `pri_nombre` varchar(255) DEFAULT NULL,
+  `seg_nombre` varchar(255) DEFAULT NULL,
+  `ciud_nacimiento` varchar(255) DEFAULT NULL,
+  `dep_nacimiento` varchar(255) DEFAULT NULL,
+  `fecha_nac` varchar(255) DEFAULT NULL,
+  `edad` int(11) DEFAULT NULL,
+  `genero` varchar(255) DEFAULT NULL,
+  `cap_dife` varchar(255) DEFAULT NULL,
+  `etnia` varchar(255) DEFAULT NULL,
+  `zona` varchar(255) DEFAULT NULL,
+  `municipio` varchar(255) DEFAULT NULL,
+  `celular` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `escolaridad` varchar(255) DEFAULT NULL,
+  `titulo_obt` varchar(255) DEFAULT NULL,
+  `proceso` varchar(256) DEFAULT NULL,
+  `organizacion` varchar(255) DEFAULT NULL,
   `huella_binaria` blob,
   `state` tinyint(1) DEFAULT NULL,
-  `estado_registro` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `estado_registro` varchar(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `tipo_registro` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `tipo_registro` varchar(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -113,10 +114,10 @@ CREATE TABLE `participantes` (
 --
 
 CREATE TABLE `password_resets` (
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -126,15 +127,15 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `users` (
   `id` int(10) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `pass` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL,
   `state` tinyint(1) NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables

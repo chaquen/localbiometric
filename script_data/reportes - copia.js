@@ -1,77 +1,95 @@
 agregarEventoLoad(iniciar_reportes);
-
 function iniciar_reportes(){
-	
+	consultar_eventos();
 
-	var d=recibirValorGet();
+	agregarEvento("btnReporteEdad","click",function(){
+		registrarDato(globales._URL_ONLINE+"reportes_edad",{},function(rs){
+						console.log(rs);
+						if(rs.respuesta){
+							
+						}else{
+							
+						}					
 
-	console.log(d);
-    if(d==false){
-    	consultar_eventos();
-    }else{
-    	var id_ev=d[0].split("=")[1];
-    	consultar_eventos(id_ev);
-    }
+		},"");
+	});
 
 	agregarEvento("btnReporteGeneral","click",function(){
-		var datos = $("#formReportes").serializarFormulario();
-		console.log(datos);
 		if(document.getElementById("selEventos").value!="0"){
-
-			registrarDato("reportes_lista_general",{id_evento:document.getElementById("selEventos").value},function(rs){
+			registrarDato(globales._URL_ONLINE+"reportes_lista_general",{id_evento:document.getElementById("selEventos").value},function(rs){
 						console.log(rs);
 						if(rs.respuesta){
 							dibujar_tabla(rs.datos);
 						}				
 
 			},"");
-			if(datos.documento!="" ){
-				if(datos.tipo_doc!="0"){
-					/*registrarDato("reportes_asistente",{documento:datos.documento},function(rs){
-						console.log(rs);
-						if(rs.respuesta){
-							dibujar_tabla(rs.datos);
-						}				
-
-				},"");*/	
-				}
-			}
-
-			
-				registrarDato("reportes_general",{datos,id_evento:document.getElementById("selEventos").value},function(rs){
-						console.log(rs);
-						if(rs.respuesta){
-							dibujar_tabla(rs.datos);
-						}				
-
-				},"");	
-			
-			
-
 		}else{
 			mostrarMensaje("Por favor selecciona un evento");
 		}
 		
 	});
 
-	
+	agregarEvento("btnReporteGenero","click",function(){
+		consultarDatos(globales._URL_ONLINE+"reportes_por_genero/"+document.getElementById("selEventos").value,{},function(rs){
+						console.log(rs.datos);
+						if(rs.respuesta){
+								var arr=[];
+								var cabza=["Participantes"];
+								var body=["Genero"];
+								//cabza.push("participantes");
+
+								for(v in rs.datos){
+									cabza.push( rs.datos[v].genero);	
+									body.push(rs.datos[v].num_genero);	
+								}
+								var todo=[cabza,body];
+								console.log(todo);
+							 	google.charts.load('current', {'packages':['bar']});
+						      	google.charts.setOnLoadCallback(drawChart);
+
+							      function drawChart() {
+							        var data = google.visualization.arrayToDataTable(
+							          todo
+							         );
+
+							        var options = {
+							          chart: {
+							            title: 'Nombre del Evento',
+							            subtitle: 'Lugar y fecha del evento'
+							          },
+							          bars: 'horizontal' // Required for Material Bar Charts.
+							        };
+
+							        var chart = new google.charts.Bar(document.getElementById('barchart_material'));
+
+							        chart.draw(data, google.charts.Bar.convertOptions(options));
+							      }
+						}				
+
+		},"");
+	});
+
+	agregarEvento("btnExportarReporteGeneral","click",function(){
+		if(document.getElementById("selEventos").value!="0"){
+			
+			//registrarDato(globales._URL_ONLINE+"exportar_reporte_lista",{datos},function(rs){
+			registrarDato(globales._URL_ONLINE+"exportar_reporte_lista",{id_evento:document.getElementById("selEventos").value},function(rs){	
+				console.log(rs);
+			});
+		}else{
+			mostrarMensaje("Por favor selecciona un evento");	
+		}
+		
+	});
 
 
 }
 
-function consultar_eventos(id){
-	if(id==undefined){
-		consultarDatos("eventos",{},function(rs){
+function consultar_eventos(){
+	consultarDatos(globales._URL_ONLINE+"eventos",{},function(rs){
 											
-			crear_select("selEventos",rs.datos,"id","name");
-		},"");	
-	}else{
-		consultarDatos("eventos/"+id,{},function(rs){
-											
-			crear_select("selEventos",rs.datos,"id","name");
-		},"");
-	}
-	
+		crear_select("selEventos",rs.datos,"id","name");
+	},"");
 }
 
 function dibujar_tabla(datos){

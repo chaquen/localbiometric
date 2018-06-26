@@ -27,7 +27,7 @@ function iniciar_evento_participantes(){
                 registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
-                           window.close();
+                            window.close();
                             
                         }
                         
@@ -77,6 +77,41 @@ function iniciar_evento_participantes(){
             }
 
             crear_data_list_dos("lista_datos_2",dep);
+    });
+
+     agregarEvento("txt_dep_2","keypress",function(e){        
+        console.log(e);
+        console.log(e.key);
+        dep2=[];
+         if (e.keyCode != 13 && e.key!=undefined) {
+            for(var el in globales._departamentos){
+                console.log(globales._departamentos[el].departamento.toUpperCase());
+                console.log(e.key);
+                console.log(globales._departamentos[el].departamento.indexOf(e.key));
+                if(globales._departamentos[el].departamento.toUpperCase().indexOf(e.key.toUpperCase()) >= 0){
+                    
+                    //console.log(globales._departamentos[el].departamento);
+                    dep2.push(globales._departamentos[el]);
+                }
+            }
+            console.log(dep2)
+            crear_data_list("lista_datos_dep_2",dep2,"id","departamento");  
+         }
+            
+    });
+    agregarEvento("txt_dep_2","change",function(e){
+        console.log(e);
+        dep2=[];
+        for(var el in globales._departamentos){
+              
+                if(globales._departamentos[el].id == e.srcElement.value.split("-")[0]  ){
+                    
+                    console.log(globales._departamentos[el].ciudades);
+                    dep2.push(globales._departamentos[el].ciudades);
+                }
+            }
+
+            crear_data_list_dos("lista_datos_mun_2",dep2);
     });
 
     agregarEvento("btn_Regresar","click",function(){

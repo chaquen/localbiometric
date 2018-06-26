@@ -100,7 +100,7 @@ class Participantes extends ModeloBaseDeDatos{
 
     function obtener_registro_todos_los_registros(){
         
-           $this->sentencia_sql="SELECT 
+            $this->sentencia_sql="SELECT 
                             `participantes`.`id`, 
                             `tipo_doc`,
                             `documento`,
@@ -112,6 +112,7 @@ class Participantes extends ModeloBaseDeDatos{
                             `ciud_nacimiento`, 
                             `dep_nacimiento`, 
                             `fecha_nac`, 
+                            `edad`, 
                             `genero`, 
                             `cap_dife`, 
                             `etnia`, 
@@ -128,11 +129,8 @@ class Participantes extends ModeloBaseDeDatos{
                             `estado_registro`, 
                             `tipo_registro`, 
                             `participantes`.`created_at`, 
-                            `participantes`.`updated_at`,
-                            `detalle_participantes`.`created_at` as `created_at_1`, 
-                            `detalle_participantes`.`updated_at` as `updated_at_1`,
-                            `detalle_participantes`.`event_id`
-                            FROM ".trim($this->TABLA)." INNER JOIN detalle_participantes WHERE detalle_participantes.user_id = participantes.documento" ;
+                            `participantes`.`updated_at`
+                            FROM ".trim($this->TABLA)."" ;
         
         
         if($this->consultar_registros()){
@@ -141,7 +139,23 @@ class Participantes extends ModeloBaseDeDatos{
                 "respuesta"=>TRUE,
                 "valores_consultados"=>$this->filas);
         }else{
-            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=> FALSE);
+            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=> FALSE,"valores_consultados"=>false);
+        }
+        
+    }
+    function obtener_registro_todos_los_registros_detall_participacion(){
+        
+           $this->sentencia_sql="SELECT 
+                             * FROM detalle_participantes" ;
+        
+        
+        if($this->consultar_registros()){
+            //var_dump($this->filas);
+            return array("mensaje"=>$this->mensajeDepuracion,
+                "respuesta"=>TRUE,
+                "valores_consultados"=>$this->filas);
+        }else{
+            return array("mensaje"=>  $this->mensajeDepuracion,"respuesta"=> FALSE,"valores_consultados"=>false);
         }
         
     }
@@ -202,6 +216,12 @@ class Participantes extends ModeloBaseDeDatos{
         foreach ($arr as $key => $value) {
                 $$key=$value;
             }   
+
+
+            $cumpleanos = new DateTime($fecha_nac);
+            $hoy = new DateTime();
+            $annos = $hoy->diff($cumpleanos);
+            $edad=$annos->y;
           $this->sentencia_sql="UPDATE ".$this->TABLA." SET 
                                                         tipo_doc = '$tipo_doc',
                                                         documento = '$documento',
@@ -213,6 +233,7 @@ class Participantes extends ModeloBaseDeDatos{
                                                         dep_nacimiento = '$dep_nacimiento',
                                                         ciud_nacimiento = '$ciud_nacimiento',
                                                         fecha_nac = '$fecha_nac',
+                                                        edad = '$edad',
                                                         genero = '$genero',
                                                         cap_dife = '$cap_dife',
                                                         etnia = '$etnia',
