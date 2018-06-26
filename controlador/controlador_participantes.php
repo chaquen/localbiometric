@@ -63,6 +63,7 @@ if(isset($_REQUEST['datos'])){
         case "consultarParticipantePendientes":
             //var_dump($post->datos->id);
 
+
         //var_dump($objeto->obtener_registro_por_valor("*","estado_registro = 'por_registrar'"));
             echo  json_encode(array("pendientes"=>$objeto->obtener_registro_por_valor("id,estado_registro","estado_registro = 'por_registrar'"),"verificados"=>$objeto2->obtener_registro_por_valor("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido","participantes.estado_registro = 'verificado'"),"registrados"=>$objeto3->obtener_registro_por_valor_join("participantes.id,participantes.pri_nombre,participantes.seg_nombre,participantes.pri_apellido,participantes.seg_apellido","participantes.estado_registro = 'registrado' AND detalle_participantes.event_id = ".$post->datos->id)));
 

@@ -27,9 +27,8 @@ function iniciar_evento_participantes(){
                 registrarDatoOff(globales._URL+"controlador/controlador_participantes.php","crearParticipanteSinEvento",{datos:datos,id:pos},function(rs){
                         if(rs.respuesta==true){
                             mostrarMensaje(rs);
-                            document.getElementById("contenedorP").style.display='none';
-                            document.getElementById("tblParticipantes").style.display='block';
-                            consultar_participantes();
+                           window.close();
+                            
                         }
                         
                     

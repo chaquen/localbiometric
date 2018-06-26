@@ -34,7 +34,7 @@ function iniciar_menu_preparar(){
 	
 }
 
-agregarEventoLoad(iniciar_menu_preparar);
+//agregarEventoLoad(iniciar_menu_preparar);
 function consultar_db(){
 
 	consultarDatosOff(globales._URL_BE+"controlador/controlador_usuario.php","validar_db",{},function(rs){

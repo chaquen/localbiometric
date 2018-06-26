@@ -180,7 +180,7 @@ abstract class ModeloBaseDeDatos{
         //echo $this->sentencia_sql;
         if($this->sentencia_sql!=""){
             if($this->ejecutar_consulta_sql()){
-                 $this->mensajeDepuracion="Registros encontrados";
+                 $this->mensajeDepuracion="";
                 return TRUE;
             }else{
                 

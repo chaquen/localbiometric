@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2018 at 01:59 AM
+-- Generation Time: Jun 24, 2018 at 06:12 AM
 -- Server version: 10.1.33-MariaDB
 -- PHP Version: 7.2.6
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `detalle_participantes` (
   `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `event_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -53,6 +53,7 @@ CREATE TABLE `eventos` (
   `atachments` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `state` tinyint(1) NOT NULL,
   `img` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `estado_evento` enum('activo','suspendido') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'suspendido',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -77,7 +78,7 @@ CREATE TABLE `migrations` (
 CREATE TABLE `participantes` (
   `id` int(10) UNSIGNED NOT NULL,
   `tipo_doc` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `documento` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `documento` int(11) UNSIGNED DEFAULT NULL,
   `lugar_exp` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `pri_apellido` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `seg_apellido` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -158,7 +159,8 @@ ALTER TABLE `eventos`
 -- Indexes for table `participantes`
 --
 ALTER TABLE `participantes`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `documento` (`documento`);
 
 --
 -- Indexes for table `password_resets`
@@ -210,7 +212,7 @@ ALTER TABLE `users`
 --
 ALTER TABLE `detalle_participantes`
   ADD CONSTRAINT `detalle_participantes_event_id_foreign` FOREIGN KEY (`event_id`) REFERENCES `eventos` (`id`),
-  ADD CONSTRAINT `detalle_participantes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`id`);
+  ADD CONSTRAINT `detalle_participantes_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `participantes` (`documento`);
 
 --
 -- Constraints for table `eventos`

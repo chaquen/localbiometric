@@ -19,7 +19,9 @@ if(isset($_REQUEST['datos'])){
         break;     
         case "seleccionar_evento":
             $objeto->actualizar_recurso_evento("estado_evento = 'activo'","estado_evento = 'suspendido'");
-            echo json_encode($objeto->actualizar_recurso_estado($post->datos->id_evento,"activo"));
+            $objeto->actualizar_recurso_estado($post->datos->id_evento,"activo");
+            $id=$post->datos->id_evento;
+            echo json_encode($objeto->obtener_registro_por_valor("id,name","id = '$id'"));
         break;
         default :
             echo json_encode(array("respuesta"=>FALSE,"mensaje"=>"Por favor defina una operacion o agrege una opcion en el swicth"));

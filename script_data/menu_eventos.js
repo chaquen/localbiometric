@@ -50,7 +50,38 @@ function iniciar_menu_eventos(){
 		
 
 	});
+	agregarEvento("btnSalir","click",function(){
 
+							if(confirm("¿Estas seguro de salir de la aplicación?")){
+								eliminar_local_storage("ssUsuario");
+								location.href="index.html";		
+							}else{
+								mostrarMensaje("Por favor registra una huella");
+							}
+					
+		
+
+	});
+	consultar_db();
+
+}
+
+function consultar_db(){
+
+	consultarDatosOff(globales._URL_BE+"controlador/controlador_usuario.php","validar_db",{},function(rs){
+			    console.log(rs);
+			    
+			    if(rs.respuesta){
+			    	document.getElementById("btnInstalar").style.display="none";
+			    	document.getElementById("btnPreparar").style.display="block";
+			    	
+				}else{
+			    	document.getElementById("btnInstalar").style.display="block";
+			    	document.getElementById("btnPreparar").style.display="none";
+			    	
+			    	
+			    }
+	});
 }
 
 function dibujar_lista_eventos(rs){

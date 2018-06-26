@@ -65,7 +65,7 @@ class Users extends ModeloBaseDeDatos{
         
         
         if($this->consultar_registros()){
-            return array("mensaje"=>$this->mensajeDepuracion,
+            return array("mensaje"=>$this->filas[0]->name." ".$this->filas[0]->lastname,
                 "respuesta"=>TRUE,
                 "valores_consultados"=>$this->filas[0],
                 "redireccionar"=>"menuEventos.html");
