@@ -76,7 +76,7 @@ class Participantes extends ModeloBaseDeDatos{
                                                         '$updated_at',
                                                         '$huella_binaria')";*/
 
-                                                        echo $this->sentencia_sql="INSERT INTO participantes (
+                                                        $this->sentencia_sql="INSERT INTO participantes (
                                                         huella_binaria) 
                                                         VALUES ( 
                                                         '$huella_binaria')";
@@ -146,11 +146,7 @@ class Participantes extends ModeloBaseDeDatos{
         
     }
     function obtener_registro_por_valor($valores_a_retornar,$valor){
-<<<<<<< HEAD
-        
-=======
-         
->>>>>>> 1f2976bf5e1a1ac083ca00954ca9e217fb12bf19
+
          $this->sentencia_sql="SELECT ". trim($valores_a_retornar)." FROM ". trim($this->TABLA);
 
         if($valor!=""){
@@ -228,15 +224,13 @@ class Participantes extends ModeloBaseDeDatos{
                                                         titulo_obt = '$titulo_obt',
                                                         organizacion = '$organizacion',
                                                         proceso = '$proceso',
-<<<<<<< HEAD
-                                                        estado_registro = 'registrado'
-=======
+
                                                         estado_registro = 'registrado',
                                                         tipo_registro = 'nuevo',
                                                         state = '1',
                                                         created_at = '$created_at',
                                                         updated_at = '$created_at'
->>>>>>> 1f2976bf5e1a1ac083ca00954ca9e217fb12bf19
+
                                                         WHERE id = '$id'";
         if($this->actualizar_registro()){
             return array("mensaje"=> $this->mensajeDepuracion,
